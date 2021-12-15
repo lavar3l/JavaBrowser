@@ -1,2 +1,0 @@
-# JavaBrowser
-JavaFX browser
