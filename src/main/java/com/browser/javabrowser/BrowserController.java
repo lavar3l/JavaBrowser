@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebHistory;
@@ -20,6 +22,9 @@ public class BrowserController implements Initializable {
     @FXML
     private TextField textField;
 
+    @FXML
+    private TabPane tabPane;
+
     private WebEngine engine;
 
     @Override
@@ -34,4 +39,12 @@ public class BrowserController implements Initializable {
         engine.load("http://"+textField.getText());
 
     }
+
+    public void addNewTab(ActionEvent actionEvent) {
+        int numTabs = tabPane.getTabs().size();
+        Tab tab = new Tab("Tab " + (numTabs + 1));
+        tabPane.getTabs().add(tab);
+    }
+
+
 }
