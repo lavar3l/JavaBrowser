@@ -20,7 +20,7 @@
       </TabPane>
       <TextField fx:id="textField" layoutX="154.0" layoutY="11.0" onAction="#loadPage" prefHeight="25.0" prefWidth="336.0" AnchorPane.leftAnchor="154.0" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="11.0" />
       <Button layoutX="120.0" layoutY="11.0" mnemonicParsing="false" onAction="#loadHomePage" text="⌂" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="11.0" />
-      <Button layoutX="499.0" layoutY="11.0" mnemonicParsing="false" onAction="#addNewTab" text="New tab" AnchorPane.rightAnchor="40.5" AnchorPane.topAnchor="11.0" />
+      <Button layoutX="499.0" layoutY="11.0" mnemonicParsing="false" text="Button" AnchorPane.rightAnchor="40.5" AnchorPane.topAnchor="11.0" />
       <Button layoutX="49.0" layoutY="11.0" mnemonicParsing="false" onAction="#navigateForward" text="🡺" />
       <Button layoutX="14.0" layoutY="11.0" mnemonicParsing="false" onAction="#navigateBackward" text="🡸" />
       <Button layoutX="84.0" layoutY="11.0" mnemonicParsing="false" onAction="#reloadPage" text="⟳" />

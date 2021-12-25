@@ -30,12 +30,34 @@ public class BrowserController implements Initializable, IBrowsable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+        // Set tab pane policies
+        this.tabPane.setTabDragPolicy(TabPane.TabDragPolicy.REORDER);
+        this.tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
+
+        // Prepare tab collection and initial tab
         this.tabs = new ArrayList<BrowserTab>();
         this.addNewTab(null);
         this.activeTab = this.tabs.get(0);
+        this.tabPane.getTabs().add(newTabButton(this.tabPane));
         this.tabPane.getSelectionModel().selectedItemProperty().addListener(
                 (ov, t, t1) -> this.onTabSelectionChange()
         );
+    }
+
+    private Tab newTabButton(TabPane tabPane) {
+        Tab newTabButton = new Tab("+");
+        newTabButton.setClosable(false);
+        tabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldTab, activeTab) -> {
+            if(activeTab == newTabButton) {
+                // Add and select new tab
+                this.addNewTab(null);
+
+                // Add new tab button at the end of the tab pane
+                this.tabPane.getTabs().remove(newTabButton);
+                this.tabPane.getTabs().add(newTabButton);
+            }
+        });
+        return newTabButton;
     }
 
     public void loadPage(ActionEvent actionEvent) {
@@ -50,7 +72,7 @@ public class BrowserController implements Initializable, IBrowsable {
         BrowserTab browserTab = new BrowserTab(Settings.homePage, this);
         this.tabs.add(browserTab);
         this.tabPane.getTabs().add(browserTab.getFXTab());
-        this.tabPane.getSelectionModel().selectLast();
+        this.tabPane.getSelectionModel().select(browserTab.getFXTab());
     }
 
     private BrowserTab getActiveTab() {
@@ -64,6 +86,8 @@ public class BrowserController implements Initializable, IBrowsable {
         }
         return null;
     }
+
+
 
     @Override
     public void navigateForward() {
@@ -86,7 +110,7 @@ public class BrowserController implements Initializable, IBrowsable {
     }
 
     public void changeAddressText(String url, Integer tabId) {
-        if(tabId == null || tabId == this.activeTab.getId())
+        if(tabId == null || tabId.equals(this.activeTab.getId()))
         {
             this.textField.setText(url);
         }
