@@ -2,7 +2,7 @@ package com.browser.javabrowser.tabs;
 
 import com.browser.javabrowser.BrowserController;
 import com.browser.javabrowser.IBrowsable;
-import com.browser.javabrowser.tools.URLSanitizer;
+import com.browser.javabrowser.tools.URLtools;
 import javafx.scene.control.Tab;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebHistory;
@@ -19,7 +19,7 @@ public class BrowserTab implements IBrowsable {
     public BrowserTab(String url, BrowserController controller) {
         this.id = ++BrowserTab.tabCount;
         this.controller = controller;
-        this.fxTab = new Tab(URLSanitizer.getTabTitle(url));
+        this.fxTab = new Tab(URLtools.getTabTitle(url));
         this.webView = new WebView();
         this.engine = this.webView.getEngine();
         this.engine.load(url);
@@ -58,7 +58,7 @@ public class BrowserTab implements IBrowsable {
     private void onPageChange() {
         String currentURL = this.getURL();
         System.out.println(currentURL);
-        this.fxTab.setText(URLSanitizer.getTabTitle(currentURL));
+        this.fxTab.setText(URLtools.getTabTitle(currentURL));
         this.controller.changeAddressText(currentURL, this.id);
         // TO DO: send history entry to History class
     }

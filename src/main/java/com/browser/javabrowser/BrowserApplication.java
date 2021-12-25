@@ -12,7 +12,7 @@ import java.io.IOException;
 public class BrowserApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Browser.fxml"));
         Parent root = loader.load();
         BrowserController controller = loader.getController();
         Scene scene = new Scene(root);
