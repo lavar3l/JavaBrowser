@@ -9,12 +9,15 @@ import javafx.scene.web.WebHistory;
 import javafx.scene.web.WebView;
 
 public class BrowserTab implements IBrowsable {
+    private static Integer tabCount = 0;
+    private Integer id;
     private Tab fxTab;
     private WebView webView;
     private WebEngine engine;
     private BrowserController controller;
 
     public BrowserTab(String url, BrowserController controller) {
+        this.id = ++BrowserTab.tabCount;
         this.controller = controller;
         this.fxTab = new Tab(URLSanitizer.getTabTitle(url));
         this.webView = new WebView();
@@ -53,10 +56,10 @@ public class BrowserTab implements IBrowsable {
     }
 
     private void onPageChange() {
-        String currentURL = this.engine.getLocation();
+        String currentURL = this.getURL();
         System.out.println(currentURL);
         this.fxTab.setText(URLSanitizer.getTabTitle(currentURL));
-        this.controller.changeAddressText(currentURL);
+        this.controller.changeAddressText(currentURL, this.id);
         // TO DO: send history entry to History class
     }
 
@@ -68,5 +71,15 @@ public class BrowserTab implements IBrowsable {
             history.go(step);
             this.onPageChange();
         }
+    }
+
+    public String getURL()
+    {
+        return this.engine.getLocation();
+    }
+
+    public Integer getId()
+    {
+        return this.id;
     }
 }

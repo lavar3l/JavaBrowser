@@ -3,6 +3,8 @@ package com.browser.javabrowser;
 import com.browser.javabrowser.settings.Settings;
 import com.browser.javabrowser.tabs.BrowserTab;
 import com.browser.javabrowser.tools.URLSanitizer;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,11 +26,16 @@ public class BrowserController implements Initializable, IBrowsable {
     private TabPane tabPane;
 
     private List<BrowserTab> tabs;
+    private BrowserTab activeTab;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         this.tabs = new ArrayList<BrowserTab>();
         this.addNewTab(null);
+        this.activeTab = this.tabs.get(0);
+        this.tabPane.getSelectionModel().selectedItemProperty().addListener(
+                (ov, t, t1) -> this.onTabSelectionChange()
+        );
     }
 
     public void loadPage(ActionEvent actionEvent) {
@@ -40,7 +47,6 @@ public class BrowserController implements Initializable, IBrowsable {
     }
 
     public void addNewTab(ActionEvent actionEvent) {
-        int numTabs = this.tabPane.getTabs().size();
         BrowserTab browserTab = new BrowserTab(Settings.homePage, this);
         this.tabs.add(browserTab);
         this.tabPane.getTabs().add(browserTab.getFXTab());
@@ -61,29 +67,34 @@ public class BrowserController implements Initializable, IBrowsable {
 
     @Override
     public void navigateForward() {
-        BrowserTab activeTab = this.getActiveTab();
-        if(activeTab != null) activeTab.navigateForward();
+        this.activeTab.navigateForward();
     }
 
     @Override
     public void navigateBackward() {
-        BrowserTab activeTab = this.getActiveTab();
-        if(activeTab != null) activeTab.navigateBackward();
+        this.activeTab.navigateBackward();
     }
 
     @Override
     public void navigateURL(String url) {
-        BrowserTab activeTab = this.getActiveTab();
-        if(activeTab != null) activeTab.navigateURL(url);
+        this.activeTab.navigateURL(url);
     }
 
     @Override
     public void reloadPage() {
-        BrowserTab activeTab = this.getActiveTab();
-        if(activeTab != null) activeTab.reloadPage();
+        this.activeTab.reloadPage();
     }
 
-    public void changeAddressText(String url) {
-        this.textField.setText(url);
+    public void changeAddressText(String url, Integer tabId) {
+        if(tabId == null || tabId == this.activeTab.getId())
+        {
+            this.textField.setText(url);
+        }
+    }
+
+    public void onTabSelectionChange()
+    {
+        this.activeTab = this.getActiveTab();
+        this.changeAddressText(this.activeTab.getURL(), null);
     }
 }
