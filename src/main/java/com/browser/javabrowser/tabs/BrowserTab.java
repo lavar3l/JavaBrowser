@@ -61,6 +61,8 @@ public class BrowserTab implements IBrowsable {
         this.fxTab.setText(URLtools.getTabTitle(currentURL));
         this.controller.changeAddressText(currentURL, this.id);
         // TO DO: send history entry to History class
+        Integer currentId = this.engine.getHistory().getCurrentIndex();
+        this.controller.archive(this.engine.getHistory().getEntries().get(currentId), this.id);
     }
 
     private void navigateHistory(int step) {

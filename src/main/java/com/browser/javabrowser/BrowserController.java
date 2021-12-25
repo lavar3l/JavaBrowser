@@ -1,5 +1,7 @@
 package com.browser.javabrowser;
 
+import com.browser.javabrowser.history.History;
+import com.browser.javabrowser.history.IArchivable;
 import com.browser.javabrowser.settings.Settings;
 import com.browser.javabrowser.tabs.BrowserTab;
 import com.browser.javabrowser.tools.URLtools;
@@ -12,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.web.WebHistory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -22,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class BrowserController implements Initializable, IBrowsable {
+public class BrowserController implements Initializable, IBrowsable, IArchivable {
     @FXML
     private TextField textField;
 
@@ -32,8 +35,13 @@ public class BrowserController implements Initializable, IBrowsable {
     private List<BrowserTab> tabs;
     private BrowserTab activeTab;
 
+    private History history;
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+        // Prepare history collector
+        this.history = new History();
+
         // Set tab pane policies
         this.tabPane.setTabDragPolicy(TabPane.TabDragPolicy.REORDER);
         this.tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
@@ -69,7 +77,8 @@ public class BrowserController implements Initializable, IBrowsable {
     }
 
     public void loadHomePage(ActionEvent actionEvent) {
-        this.navigateURL(Settings.homePage);
+        //this.navigateURL(Settings.homePage);
+        this.history.print();
     }
 
     public void addNewTab(ActionEvent actionEvent) {
@@ -139,6 +148,14 @@ public class BrowserController implements Initializable, IBrowsable {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void archive(WebHistory.Entry entry, Integer tabId) {
+        if(tabId.equals(this.activeTab.getId()))
+        {
+            this.history.archive(entry, tabId);
         }
     }
 }

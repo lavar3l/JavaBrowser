@@ -4,6 +4,7 @@ module com.browser.javabrowser {
 
     requires org.controlsfx.controls;
     requires javafx.web;
+    requires com.google.gson;
 
     requires org.kordamp.ikonli.core;
     requires org.kordamp.ikonli.javafx;
