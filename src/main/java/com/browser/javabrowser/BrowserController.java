@@ -2,17 +2,21 @@ package com.browser.javabrowser;
 
 import com.browser.javabrowser.settings.Settings;
 import com.browser.javabrowser.tabs.BrowserTab;
-import com.browser.javabrowser.tools.URLSanitizer;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import com.browser.javabrowser.tools.URLtools;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +65,7 @@ public class BrowserController implements Initializable, IBrowsable {
     }
 
     public void loadPage(ActionEvent actionEvent) {
-        this.navigateURL(URLSanitizer.getFullURL(this.textField.getText()));
+        this.navigateURL(URLtools.getFullURL(this.textField.getText()));
     }
 
     public void loadHomePage(ActionEvent actionEvent) {
@@ -120,5 +124,21 @@ public class BrowserController implements Initializable, IBrowsable {
     {
         this.activeTab = this.getActiveTab();
         this.changeAddressText(this.activeTab.getURL(), null);
+    }
+
+    public void openSettingsWindow(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Settings.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Settings");
+            stage.setResizable(false);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
