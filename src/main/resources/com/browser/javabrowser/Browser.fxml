@@ -5,8 +5,9 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #1e1e1e;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.browser.javabrowser.BrowserController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #1e1e1e;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.browser.javabrowser.BrowserController">
    <stylesheets>
       <String fx:value="/base.css" />
       <String fx:value="/base_extras.css" />
@@ -18,11 +19,36 @@
         <tabs>
         </tabs>
       </TabPane>
-      <TextField fx:id="textField" layoutX="154.0" layoutY="11.0" onAction="#loadPage" prefHeight="25.0" prefWidth="336.0" AnchorPane.leftAnchor="154.0" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="11.0" />
-      <Button layoutX="120.0" layoutY="11.0" mnemonicParsing="false" onAction="#loadHomePage" text="⌂" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="11.0" />
-      <Button layoutX="499.0" layoutY="11.0" mnemonicParsing="false" onAction="#openSettingsWindow" text="☰" AnchorPane.rightAnchor="40.5" AnchorPane.topAnchor="11.0" />
-      <Button layoutX="49.0" layoutY="11.0" mnemonicParsing="false" onAction="#navigateForward" text="🡺" />
-      <Button layoutX="14.0" layoutY="11.0" mnemonicParsing="false" onAction="#navigateBackward" text="🡸" />
-      <Button layoutX="84.0" layoutY="11.0" mnemonicParsing="false" onAction="#reloadPage" text="⟳" />
+      <TextField fx:id="textField" layoutX="133.0" layoutY="10.0" onAction="#loadPage" prefHeight="25.0" prefWidth="336.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="10.0" />
+      <Button layoutX="528.0" layoutY="10.0" mnemonicParsing="false" onAction="#loadHomePage" AnchorPane.rightAnchor="48.0" AnchorPane.topAnchor="10.0">
+         <graphic>
+            <FontIcon iconColor="white" iconLiteral="win10-home" />
+         </graphic>
+      </Button>
+      <Button layoutX="562.0" layoutY="11.0" mnemonicParsing="false" onAction="#openSettingsWindow" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="10.0">
+         <graphic>
+            <FontIcon iconColor="white" iconLiteral="win10-settings" />
+         </graphic>
+      </Button>
+      <Button layoutX="49.0" layoutY="11.0" mnemonicParsing="false" onAction="#navigateForward" AnchorPane.leftAnchor="48.0" AnchorPane.topAnchor="10.0">
+         <graphic>
+            <FontIcon iconColor="white" iconLiteral="win10-chevron-right" />
+         </graphic>
+      </Button>
+      <Button layoutX="14.0" layoutY="11.0" mnemonicParsing="false" onAction="#navigateBackward" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="10.0">
+         <graphic>
+            <FontIcon iconColor="white" iconLiteral="win10-chevron-left" />
+         </graphic>
+      </Button>
+      <Button layoutX="84.0" layoutY="11.0" mnemonicParsing="false" onAction="#reloadPage" AnchorPane.leftAnchor="84.0" AnchorPane.topAnchor="10.0">
+         <graphic>
+            <FontIcon iconColor="white" iconLiteral="win10-rotate-right" />
+         </graphic>
+      </Button>
+      <Button layoutX="468.0" layoutY="16.0" mnemonicParsing="false" AnchorPane.rightAnchor="84.0" AnchorPane.topAnchor="10.0">
+         <graphic>
+            <FontIcon iconColor="white" iconLiteral="win10-binoculars" />
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

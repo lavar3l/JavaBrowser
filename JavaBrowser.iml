@@ -25,6 +25,7 @@
     <orderEntry type="library" name="Maven: org.controlsfx:controlsfx:11.1.0" level="project" />
     <orderEntry type="library" name="Maven: org.kordamp.ikonli:ikonli-javafx:12.2.0" level="project" />
     <orderEntry type="library" name="Maven: org.kordamp.ikonli:ikonli-core:12.2.0" level="project" />
+    <orderEntry type="library" name="Maven: org.kordamp.ikonli:ikonli-win10-pack:12.2.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-api:5.7.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.apiguardian:apiguardian-api:1.1.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.opentest4j:opentest4j:1.2.0" level="project" />
