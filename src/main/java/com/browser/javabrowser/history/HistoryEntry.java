@@ -1,6 +1,8 @@
 package com.browser.javabrowser.history;
 
 import javafx.scene.web.WebHistory;
+import org.apache.commons.lang3.time.DateFormatUtils;
+
 import java.util.Date;
 
 public class HistoryEntry {
@@ -25,8 +27,8 @@ public class HistoryEntry {
         return this.url;
     }
 
-    public Date getDate() {
-        return this.date;
+    public String getDate() {
+        return DateFormatUtils.format(this.date, "yyyy-MM-dd HH:mm:ss");
     }
 
     public Integer getTabId() {

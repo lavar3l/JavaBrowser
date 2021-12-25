@@ -1,19 +1,21 @@
 package com.browser.javabrowser.history;
 
 import com.browser.javabrowser.tools.SerializationTools;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.web.WebHistory;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class History implements IArchivable {
+public class HistoryCollector implements IArchivable {
     private List<HistoryEntry> entries;
 
-    public History() {
+    public HistoryCollector() {
         this.entries = new ArrayList<HistoryEntry>();
     }
 
-    public History(String filePath) {
+    public HistoryCollector(String filePath) {
         this.entries = SerializationTools.deserialize(filePath);
         if(this.entries == null) this.entries = new ArrayList<HistoryEntry>();
     }
@@ -27,11 +29,8 @@ public class History implements IArchivable {
         this.entries.add(new HistoryEntry(entry, tabId));
     }
 
-    public void print()
+    public ObservableList<HistoryEntry> getData()
     {
-        for(HistoryEntry e: this.entries)
-        {
-            System.out.println(e.getTitle() + " | " + e.getUrl() + " | " + e.getDate());
-        }
+        return FXCollections.observableList(this.entries);
     }
 }

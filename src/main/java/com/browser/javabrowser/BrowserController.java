@@ -1,7 +1,8 @@
 package com.browser.javabrowser;
 
-import com.browser.javabrowser.history.History;
+import com.browser.javabrowser.history.HistoryCollector;
 import com.browser.javabrowser.history.IArchivable;
+import com.browser.javabrowser.history.ICollectable;
 import com.browser.javabrowser.settings.Settings;
 import com.browser.javabrowser.tabs.BrowserTab;
 import com.browser.javabrowser.tools.URLtools;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class BrowserController implements Initializable, IBrowsable, IArchivable {
+public class BrowserController implements Initializable, IBrowsable, IArchivable, ICollectable {
     @FXML
     private TextField textField;
 
@@ -35,13 +36,10 @@ public class BrowserController implements Initializable, IBrowsable, IArchivable
     private List<BrowserTab> tabs;
     private BrowserTab activeTab;
 
-    private History history;
+    private HistoryCollector historyCollector;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        // Prepare history collector
-        this.history = new History();
-
         // Set tab pane policies
         this.tabPane.setTabDragPolicy(TabPane.TabDragPolicy.REORDER);
         this.tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
@@ -77,8 +75,7 @@ public class BrowserController implements Initializable, IBrowsable, IArchivable
     }
 
     public void loadHomePage(ActionEvent actionEvent) {
-        //this.navigateURL(Settings.homePage);
-        this.history.print();
+        this.navigateURL(Settings.homePage);
     }
 
     public void addNewTab(ActionEvent actionEvent) {
@@ -151,11 +148,33 @@ public class BrowserController implements Initializable, IBrowsable, IArchivable
         }
     }
 
+    public void openHistoryWindow(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("History.fxml"));
+            Parent root = loader.load();
+            HistoryController controller = loader.getController();
+            controller.setHistoryCollector(this.historyCollector);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("History");
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void archive(WebHistory.Entry entry, Integer tabId) {
         if(tabId.equals(this.activeTab.getId()))
         {
-            this.history.archive(entry, tabId);
+            if(this.historyCollector != null) this.historyCollector.archive(entry, tabId);
         }
+    }
+
+    public void setHistoryCollector(HistoryCollector collector)
+    {
+        this.historyCollector = collector;
     }
 }
