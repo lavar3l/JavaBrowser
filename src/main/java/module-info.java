@@ -13,6 +13,6 @@ module com.browser.javabrowser {
     requires org.apache.commons.lang3;
 
     opens com.browser.javabrowser to javafx.fxml;
-    opens com.browser.javabrowser.history to javafx.base;
+    opens com.browser.javabrowser.history to javafx.base, com.google.gson;
     exports com.browser.javabrowser;
 }

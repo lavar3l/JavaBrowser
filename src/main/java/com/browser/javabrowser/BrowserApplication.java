@@ -3,10 +3,12 @@ package com.browser.javabrowser;
 import com.browser.javabrowser.history.HistoryCollector;
 import com.browser.javabrowser.history.ICollectable;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.WindowEvent;
 
 
 import java.io.IOException;
@@ -41,6 +43,11 @@ public class BrowserApplication extends Application {
         stage.setTitle("JavaBrowser");
 
         stage.setScene(scene);
+
+        stage.setOnCloseRequest(windowEvent -> {
+            this.historyCollector.saveToFile("test.json");
+        });
+
         stage.show();
     }
 }

@@ -21,6 +21,7 @@ public class SerializationTools {
             Type datasetListType = new TypeToken<Collection<T>>() {}.getType();
             JsonWriter writer = new JsonWriter(new FileWriter(filePath));
             gson.toJson(sourceList, datasetListType, writer);
+            writer.close();
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Error while saving JSON to file " + filePath);
             alert.show();
@@ -33,8 +34,10 @@ public class SerializationTools {
             Gson gson = new Gson();
             Type datasetListType = new TypeToken<Collection<T>>() {}.getType();
             JsonReader reader = new JsonReader(new FileReader(filePath));
-            return gson.fromJson(reader, datasetListType);
-        } catch (FileNotFoundException e) {
+            List<T> data = gson.fromJson(reader, datasetListType);
+            reader.close();
+            return data;
+        } catch (IOException e) {
             return null;
         }
     }
