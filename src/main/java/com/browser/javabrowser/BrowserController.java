@@ -136,6 +136,8 @@ public class BrowserController implements Initializable, IBrowsable, IArchivable
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Settings.fxml"));
             Parent root = loader.load();
+            SettingsController controller = loader.getController();
+            controller.setHistoryCollector(this.historyCollector);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Settings");
