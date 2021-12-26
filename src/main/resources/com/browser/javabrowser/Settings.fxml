@@ -39,7 +39,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Button layoutX="22.0" layoutY="231.0" mnemonicParsing="false" text="Show history" />
+      <Button layoutX="22.0" layoutY="231.0" mnemonicParsing="false" text="Clear history" onAction="#clearHistory"/>
       <Label layoutX="331.0" layoutY="60.0" text="Action">
          <font>
             <Font size="16.0" />

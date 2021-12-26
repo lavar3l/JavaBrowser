@@ -45,7 +45,7 @@
             <FontIcon iconColor="white" iconLiteral="win10-rotate-right" />
          </graphic>
       </Button>
-      <Button layoutX="468.0" layoutY="16.0" mnemonicParsing="false" AnchorPane.rightAnchor="84.0" AnchorPane.topAnchor="10.0">
+      <Button layoutX="468.0" layoutY="16.0" mnemonicParsing="false" onAction="#openHistoryWindow" AnchorPane.rightAnchor="84.0" AnchorPane.topAnchor="10.0">
          <graphic>
             <FontIcon iconColor="white" iconLiteral="win10-binoculars" />
          </graphic>

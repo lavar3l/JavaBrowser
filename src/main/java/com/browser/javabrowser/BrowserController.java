@@ -1,5 +1,8 @@
 package com.browser.javabrowser;
 
+import com.browser.javabrowser.history.HistoryCollector;
+import com.browser.javabrowser.history.IArchivable;
+import com.browser.javabrowser.history.ICollectable;
 import com.browser.javabrowser.settings.Settings;
 import com.browser.javabrowser.tabs.BrowserTab;
 import com.browser.javabrowser.tools.URLtools;
@@ -12,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.web.WebHistory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -22,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class BrowserController implements Initializable, IBrowsable {
+public class BrowserController implements Initializable, IBrowsable, IArchivable, ICollectable {
     @FXML
     private TextField textField;
 
@@ -31,6 +35,8 @@ public class BrowserController implements Initializable, IBrowsable {
 
     private List<BrowserTab> tabs;
     private BrowserTab activeTab;
+
+    private HistoryCollector historyCollector;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -130,6 +136,8 @@ public class BrowserController implements Initializable, IBrowsable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Settings.fxml"));
             Parent root = loader.load();
+            SettingsController controller = loader.getController();
+            controller.setHistoryCollector(this.historyCollector);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Settings");
@@ -140,5 +148,35 @@ public class BrowserController implements Initializable, IBrowsable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void openHistoryWindow(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("History.fxml"));
+            Parent root = loader.load();
+            HistoryController controller = loader.getController();
+            controller.setHistoryCollector(this.historyCollector);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("History");
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void archive(WebHistory.Entry entry, Integer tabId) {
+        if(tabId.equals(this.activeTab.getId()))
+        {
+            if(this.historyCollector != null) this.historyCollector.archive(entry, tabId);
+        }
+    }
+
+    public void setHistoryCollector(HistoryCollector collector)
+    {
+        this.historyCollector = collector;
     }
 }
