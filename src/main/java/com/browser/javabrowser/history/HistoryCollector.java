@@ -16,8 +16,11 @@ public class HistoryCollector implements IArchivable {
     }
 
     public HistoryCollector(String filePath) {
-        this.entries = SerializationTools.deserialize(filePath);
-        if(this.entries == null) this.entries = new ArrayList<HistoryEntry>();
+        this.entries = new ArrayList<HistoryEntry>();
+
+        Class<HistoryEntry> type = HistoryEntry.class;
+        List<HistoryEntry> previousEntries = SerializationTools.deserialize(filePath, type);
+        if(previousEntries != null) this.entries.addAll(previousEntries);
     }
 
     public void saveToFile(String filePath) {
@@ -32,5 +35,10 @@ public class HistoryCollector implements IArchivable {
     public ObservableList<HistoryEntry> getData()
     {
         return FXCollections.observableList(this.entries);
+    }
+
+    public void clear()
+    {
+        this.entries.clear();
     }
 }

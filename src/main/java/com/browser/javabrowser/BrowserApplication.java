@@ -29,7 +29,7 @@ public class BrowserApplication extends Application {
     private void initialize()
     {
         // Prepare history collector
-        this.historyCollector = new HistoryCollector();
+        this.historyCollector = new HistoryCollector("test.json");
     }
 
     private void openWindow(Stage stage) throws IOException

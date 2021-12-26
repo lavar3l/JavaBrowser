@@ -56,11 +56,12 @@ public class BrowserTab implements IBrowsable {
     }
 
     private void onPageChange() {
+        // Set current URL in address bar and tab title
         String currentURL = this.getURL();
-        System.out.println(currentURL);
         this.fxTab.setText(URLtools.getTabTitle(currentURL));
         this.controller.changeAddressText(currentURL, this.id);
-        // TO DO: send history entry to History class
+
+        // Send history entry to history collector
         Integer currentId = this.engine.getHistory().getCurrentIndex();
         this.controller.archive(this.engine.getHistory().getEntries().get(currentId), this.id);
     }
