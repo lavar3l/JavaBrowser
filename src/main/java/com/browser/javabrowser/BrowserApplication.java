@@ -2,6 +2,8 @@ package com.browser.javabrowser;
 
 import com.browser.javabrowser.history.HistoryCollector;
 import com.browser.javabrowser.history.ICollectable;
+import com.browser.javabrowser.settings.Paths;
+import com.browser.javabrowser.settings.Settings;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -28,8 +30,11 @@ public class BrowserApplication extends Application {
 
     private void initialize()
     {
+        // Read settings
+        Settings.initialize(Paths.getSettingsPath());
+
         // Prepare history collector
-        this.historyCollector = new HistoryCollector("test.json");
+        this.historyCollector = new HistoryCollector(Paths.getHistoryPath());
     }
 
     private void openWindow(Stage stage) throws IOException
@@ -45,9 +50,15 @@ public class BrowserApplication extends Application {
         stage.setScene(scene);
 
         stage.setOnCloseRequest(windowEvent -> {
-            this.historyCollector.saveToFile("test.json");
+            this.onAppClosing();
         });
 
         stage.show();
+    }
+
+    private void onAppClosing()
+    {
+        this.historyCollector.saveToFile(Paths.getHistoryPath());
+        Settings.saveToFile(Paths.getSettingsPath());
     }
 }

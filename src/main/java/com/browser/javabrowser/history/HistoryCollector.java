@@ -19,12 +19,12 @@ public class HistoryCollector implements IArchivable {
         this.entries = new ArrayList<HistoryEntry>();
 
         Class<HistoryEntry> type = HistoryEntry.class;
-        List<HistoryEntry> previousEntries = SerializationTools.deserialize(filePath, type);
+        List<HistoryEntry> previousEntries = SerializationTools.deserializeList(filePath, type);
         if(previousEntries != null) this.entries.addAll(previousEntries);
     }
 
     public void saveToFile(String filePath) {
-        SerializationTools.serialize(filePath, this.entries);
+        SerializationTools.serializeList(filePath, this.entries);
     }
 
     @Override
