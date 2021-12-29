@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import com.browser.javabrowser.messages.StyledAlert;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
@@ -27,8 +28,7 @@ public class SerializationTools {
             gson.toJson(source, dataType, writer);
             writer.close();
         } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Error while saving JSON to file " + filePath);
-            alert.show();
+            StyledAlert.show(Alert.AlertType.ERROR, "Error while saving JSON to file " + filePath);
         }
     }
 
@@ -40,8 +40,7 @@ public class SerializationTools {
             gson.toJson(sourceList, datasetListType, writer);
             writer.close();
         } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Error while saving JSON to file " + filePath);
-            alert.show();
+            StyledAlert.show(Alert.AlertType.ERROR, "Error while saving JSON to file " + filePath);
         }
     }
 
