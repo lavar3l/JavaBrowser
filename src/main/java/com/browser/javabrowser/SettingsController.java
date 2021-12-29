@@ -1,7 +1,8 @@
 package com.browser.javabrowser;
 
-import com.browser.javabrowser.history.HistoryCollector;
-import com.browser.javabrowser.history.ICollectable;
+import com.browser.javabrowser.collectors.bookmarks.BookmarksCollector;
+import com.browser.javabrowser.collectors.history.HistoryCollector;
+import com.browser.javabrowser.collectors.ICollectable;
 import com.browser.javabrowser.messages.StyledAlert;
 import com.browser.javabrowser.settings.Settings;
 import com.browser.javabrowser.tools.URLtools;
@@ -12,9 +13,8 @@ import javafx.scene.control.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Set;
 
-public class SettingsController implements Initializable, ICollectable {
+public class SettingsController implements Initializable {
     @FXML
     private TextField homePageTextField;
 
@@ -28,6 +28,7 @@ public class SettingsController implements Initializable, ICollectable {
     private ToggleButton favouritesToggleButton;
 
     private HistoryCollector historyCollector;
+    private BookmarksCollector bookmarksCollector;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -50,8 +51,15 @@ public class SettingsController implements Initializable, ICollectable {
         this.historyCollector.clear();
     }
 
-    @Override
-    public void setHistoryCollector(HistoryCollector collector) {
+    public void setCollector(HistoryCollector collector) {
         this.historyCollector = collector;
+    }
+
+    public void clearBookmarks(ActionEvent actionEvent) {
+        this.bookmarksCollector.clear();
+    }
+
+    public void setCollector(BookmarksCollector collector) {
+        this.bookmarksCollector = collector;
     }
 }

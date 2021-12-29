@@ -5,18 +5,15 @@ public final class Paths {
     private final static String historyPath = "history.json";
     private final static String bookmarksPath = "bookmarks.json";
 
-    public static String getSettingsPath()
-    {
+    public static String getSettingsPath() {
         return Paths.settingsPath;
     }
 
-    public static String getHistoryPath()
-    {
+    public static String getHistoryPath() {
         return Paths.historyPath;
     }
 
-    public static String getBookmarksPath()
-    {
+    public static String getBookmarksPath() {
         return Paths.bookmarksPath;
     }
 }

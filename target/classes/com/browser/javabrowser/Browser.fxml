@@ -19,7 +19,7 @@
         <tabs>
         </tabs>
       </TabPane>
-      <TextField fx:id="textField" layoutX="133.0" layoutY="10.0" onAction="#loadPage" prefHeight="25.0" prefWidth="336.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="10.0" />
+      <TextField fx:id="textField" layoutX="133.0" layoutY="10.0" onAction="#loadPage" prefHeight="25.0" prefWidth="336.0" AnchorPane.leftAnchor="168.0" AnchorPane.rightAnchor="168.0" AnchorPane.topAnchor="10.0" />
       <Button layoutX="528.0" layoutY="10.0" mnemonicParsing="false" onAction="#loadHomePage" AnchorPane.rightAnchor="48.0" AnchorPane.topAnchor="10.0">
          <graphic>
             <FontIcon iconColor="white" iconLiteral="win10-home" />
@@ -48,6 +48,16 @@
       <Button layoutX="468.0" layoutY="16.0" mnemonicParsing="false" onAction="#openHistoryWindow" AnchorPane.rightAnchor="84.0" AnchorPane.topAnchor="10.0">
          <graphic>
             <FontIcon iconColor="white" iconLiteral="win10-binoculars" />
+         </graphic>
+      </Button>
+      <Button layoutX="120.0" layoutY="11.0" mnemonicParsing="false" onAction="#addToBookmarks" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="10.0">
+         <graphic>
+            <FontIcon iconColor="white" iconLiteral="win10-pin-3" />
+         </graphic>
+      </Button>
+      <Button layoutX="478.0" layoutY="26.0" mnemonicParsing="false" onAction="#openBookmarksWindow" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="10.0">
+         <graphic>
+            <FontIcon iconColor="white" iconLiteral="win10-list" />
          </graphic>
       </Button>
    </children>

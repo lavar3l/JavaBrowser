@@ -15,20 +15,17 @@ public final class Settings {
         else Settings.restoreSave(save);
     }
 
-    public static void saveToFile(String filePath)
-    {
+    public static void saveToFile(String filePath) {
         SettingsSave save = new SettingsSave();
         save.saveSettings();
         SerializationTools.serialize(filePath, save);
     }
 
-    public static void restoreDefaults()
-    {
+    public static void restoreDefaults() {
         Settings.homePage = Settings.homePage_default;
     }
 
-    private static void restoreSave(SettingsSave save)
-    {
+    private static void restoreSave(SettingsSave save) {
         Settings.homePage = save.homePage;
     }
 }

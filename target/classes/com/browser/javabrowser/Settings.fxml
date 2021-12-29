@@ -28,12 +28,12 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="21.0" layoutY="135.0" text="Favourites bar">
+      <Label layoutX="21.0" layoutY="135.0" text="Bookmarks">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <ToggleButton fx:id="favouritesToggleButton" layoutX="20.0" layoutY="166.0" mnemonicParsing="false" text="ToggleButton" />
+      <Button layoutX="20.0" layoutY="166.0" mnemonicParsing="false" text="Clear bookmarks" onAction="#clearBookmarks"/>
       <Label layoutX="20.0" layoutY="206.0" text="History">
          <font>
             <Font size="16.0" />
