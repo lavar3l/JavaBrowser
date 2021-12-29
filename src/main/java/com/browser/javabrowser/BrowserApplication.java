@@ -1,17 +1,14 @@
 package com.browser.javabrowser;
 
-import com.browser.javabrowser.bookmarks.BookmarksCollector;
-import com.browser.javabrowser.history.HistoryCollector;
-import com.browser.javabrowser.history.ICollectable;
+import com.browser.javabrowser.collectors.bookmarks.BookmarksCollector;
+import com.browser.javabrowser.collectors.history.HistoryCollector;
 import com.browser.javabrowser.settings.Paths;
 import com.browser.javabrowser.settings.Settings;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.WindowEvent;
 
 
 import java.io.IOException;
@@ -47,8 +44,8 @@ public class BrowserApplication extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Browser.fxml"));
         Parent root = loader.load();
         BrowserController controller = loader.getController();
-        controller.setHistoryCollector(this.historyCollector);
-        controller.setBookmarksController(this.bookmarksCollector);
+        controller.setCollector(this.historyCollector);
+        controller.setCollector(this.bookmarksCollector);
         Scene scene = new Scene(root);
         //stage.getIcons().add(new Image("icon.png"));
         stage.setTitle("JavaBrowser");

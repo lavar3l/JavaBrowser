@@ -1,8 +1,9 @@
-package com.browser.javabrowser.bookmarks;
+package com.browser.javabrowser.collectors.bookmarks;
 
+import com.browser.javabrowser.collectors.IEntry;
 import javafx.scene.web.WebHistory;
 
-public class BookmarkEntry {
+public class BookmarkEntry implements IEntry {
     private String title;
     private String url;
 
@@ -12,10 +13,12 @@ public class BookmarkEntry {
         this.url = entry.getUrl();
     }
 
+    @Override
     public String getTitle() {
         return this.title;
     }
 
+    @Override
     public String getUrl() {
         return this.url;
     }

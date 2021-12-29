@@ -1,10 +1,8 @@
 package com.browser.javabrowser;
 
-import com.browser.javabrowser.bookmarks.BookmarkEntry;
-import com.browser.javabrowser.bookmarks.BookmarksCollector;
-import com.browser.javabrowser.history.HistoryCollector;
-import com.browser.javabrowser.history.HistoryEntry;
-import com.browser.javabrowser.history.ICollectable;
+import com.browser.javabrowser.collectors.ICollectable;
+import com.browser.javabrowser.collectors.bookmarks.BookmarkEntry;
+import com.browser.javabrowser.collectors.bookmarks.BookmarksCollector;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,7 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class BookmarksController implements Initializable {
+public class BookmarksController implements Initializable, ICollectable<BookmarksCollector> {
     private BookmarksCollector bookmarksCollector;
     private BrowserController parent;
 
@@ -28,12 +26,14 @@ public class BookmarksController implements Initializable {
     }
 
 
-    public void setBookmarksCollector(BookmarksCollector collector)
+    @Override
+    public void setCollector(BookmarksCollector collector)
     {
         this.bookmarksCollector = collector;
         this.loadData();
     }
 
+    @Override
     public void setParent(BrowserController parent)
     {
         this.parent = parent;
@@ -56,8 +56,7 @@ public class BookmarksController implements Initializable {
         this.tableView.setItems(this.bookmarksCollector.getData());
     }
 
-    private BookmarkEntry getSelectedEntry()
-    {
+    private BookmarkEntry getSelectedEntry() {
         return this.tableView.getSelectionModel().getSelectedItem();
     }
 

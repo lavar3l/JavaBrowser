@@ -1,9 +1,7 @@
 package com.browser.javabrowser;
 
-import com.browser.javabrowser.bookmarks.BookmarksCollector;
-import com.browser.javabrowser.history.HistoryCollector;
-import com.browser.javabrowser.history.IArchivable;
-import com.browser.javabrowser.history.ICollectable;
+import com.browser.javabrowser.collectors.bookmarks.BookmarksCollector;
+import com.browser.javabrowser.collectors.history.HistoryCollector;
 import com.browser.javabrowser.settings.Settings;
 import com.browser.javabrowser.tabs.BrowserTab;
 import com.browser.javabrowser.tools.URLtools;
@@ -27,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class BrowserController implements Initializable, IBrowsable, IArchivable, ICollectable {
+public class BrowserController implements Initializable, IBrowsable {
     @FXML
     private TextField textField;
 
@@ -139,8 +137,8 @@ public class BrowserController implements Initializable, IBrowsable, IArchivable
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Settings.fxml"));
             Parent root = loader.load();
             SettingsController controller = loader.getController();
-            controller.setHistoryCollector(this.historyCollector);
-            controller.setBookmarksCollector(this.bookmarksCollector);
+            controller.setCollector(this.historyCollector);
+            controller.setCollector(this.bookmarksCollector);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Settings");
@@ -158,7 +156,8 @@ public class BrowserController implements Initializable, IBrowsable, IArchivable
             FXMLLoader loader = new FXMLLoader(getClass().getResource("History.fxml"));
             Parent root = loader.load();
             HistoryController controller = loader.getController();
-            controller.setHistoryCollector(this.historyCollector);
+            controller.setCollector(this.historyCollector);
+            controller.setParent(this);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("History");
@@ -170,24 +169,23 @@ public class BrowserController implements Initializable, IBrowsable, IArchivable
         }
     }
 
-    @Override
     public void archive(WebHistory.Entry entry, Integer tabId) {
         if(tabId.equals(this.activeTab.getId()))
         {
-            if(this.historyCollector != null) this.historyCollector.archive(entry, tabId);
+            if(this.historyCollector != null) this.historyCollector.archive(entry);
         }
     }
 
-    public void setHistoryCollector(HistoryCollector collector) {
+    public void setCollector(HistoryCollector collector) {
         this.historyCollector = collector;
     }
 
-    public void setBookmarksController(BookmarksCollector collector) {
+    public void setCollector(BookmarksCollector collector) {
         this.bookmarksCollector = collector;
     }
 
     public void addToBookmarks(ActionEvent actionEvent) {
-        this.bookmarksCollector.archive(this.activeTab.getHistoryEntry(), this.activeTab.getId());
+        this.bookmarksCollector.archive(this.activeTab.getHistoryEntry());
     }
 
     public void openBookmarksWindow(ActionEvent actionEvent) {
@@ -195,7 +193,7 @@ public class BrowserController implements Initializable, IBrowsable, IArchivable
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Bookmarks.fxml"));
             Parent root = loader.load();
             BookmarksController controller = loader.getController();
-            controller.setBookmarksCollector(this.bookmarksCollector);
+            controller.setCollector(this.bookmarksCollector);
             controller.setParent(this);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
