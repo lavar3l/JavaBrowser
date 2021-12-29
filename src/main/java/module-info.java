@@ -14,6 +14,7 @@ module com.browser.javabrowser {
 
     opens com.browser.javabrowser to javafx.fxml;
     opens com.browser.javabrowser.history to javafx.base, com.google.gson;
-    opens com.browser.javabrowser.settings to com.google.gson;
+    opens com.browser.javabrowser.settings to javafx.base, com.google.gson;
+    opens com.browser.javabrowser.bookmarks to javafx.base, com.google.gson;
     exports com.browser.javabrowser;
 }

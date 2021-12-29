@@ -1,5 +1,6 @@
 package com.browser.javabrowser;
 
+import com.browser.javabrowser.bookmarks.BookmarksCollector;
 import com.browser.javabrowser.history.HistoryCollector;
 import com.browser.javabrowser.history.ICollectable;
 import com.browser.javabrowser.messages.StyledAlert;
@@ -28,6 +29,7 @@ public class SettingsController implements Initializable, ICollectable {
     private ToggleButton favouritesToggleButton;
 
     private HistoryCollector historyCollector;
+    private BookmarksCollector bookmarksCollector;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -53,5 +55,13 @@ public class SettingsController implements Initializable, ICollectable {
     @Override
     public void setHistoryCollector(HistoryCollector collector) {
         this.historyCollector = collector;
+    }
+
+    public void clearBookmarks(ActionEvent actionEvent) {
+        this.bookmarksCollector.clear();
+    }
+
+    public void setBookmarksCollector(BookmarksCollector collector) {
+        this.bookmarksCollector = collector;
     }
 }

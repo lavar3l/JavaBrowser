@@ -1,5 +1,6 @@
 package com.browser.javabrowser;
 
+import com.browser.javabrowser.bookmarks.BookmarksCollector;
 import com.browser.javabrowser.history.HistoryCollector;
 import com.browser.javabrowser.history.ICollectable;
 import com.browser.javabrowser.settings.Paths;
@@ -17,6 +18,7 @@ import java.io.IOException;
 
 public class BrowserApplication extends Application {
     private HistoryCollector historyCollector;
+    private BookmarksCollector bookmarksCollector;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -35,6 +37,9 @@ public class BrowserApplication extends Application {
 
         // Prepare history collector
         this.historyCollector = new HistoryCollector(Paths.getHistoryPath());
+
+        // Prepare bookmarks collector
+        this.bookmarksCollector = new BookmarksCollector(Paths.getBookmarksPath());
     }
 
     private void openWindow(Stage stage) throws IOException
@@ -43,6 +48,7 @@ public class BrowserApplication extends Application {
         Parent root = loader.load();
         BrowserController controller = loader.getController();
         controller.setHistoryCollector(this.historyCollector);
+        controller.setBookmarksController(this.bookmarksCollector);
         Scene scene = new Scene(root);
         //stage.getIcons().add(new Image("icon.png"));
         stage.setTitle("JavaBrowser");
@@ -59,6 +65,7 @@ public class BrowserApplication extends Application {
     private void onAppClosing()
     {
         this.historyCollector.saveToFile(Paths.getHistoryPath());
+        this.bookmarksCollector.saveToFile(Paths.getBookmarksPath());
         Settings.saveToFile(Paths.getSettingsPath());
     }
 }

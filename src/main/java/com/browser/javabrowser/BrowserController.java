@@ -1,5 +1,6 @@
 package com.browser.javabrowser;
 
+import com.browser.javabrowser.bookmarks.BookmarksCollector;
 import com.browser.javabrowser.history.HistoryCollector;
 import com.browser.javabrowser.history.IArchivable;
 import com.browser.javabrowser.history.ICollectable;
@@ -37,6 +38,7 @@ public class BrowserController implements Initializable, IBrowsable, IArchivable
     private BrowserTab activeTab;
 
     private HistoryCollector historyCollector;
+    private BookmarksCollector bookmarksCollector;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -138,6 +140,7 @@ public class BrowserController implements Initializable, IBrowsable, IArchivable
             Parent root = loader.load();
             SettingsController controller = loader.getController();
             controller.setHistoryCollector(this.historyCollector);
+            controller.setBookmarksCollector(this.bookmarksCollector);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Settings");
@@ -175,8 +178,33 @@ public class BrowserController implements Initializable, IBrowsable, IArchivable
         }
     }
 
-    public void setHistoryCollector(HistoryCollector collector)
-    {
+    public void setHistoryCollector(HistoryCollector collector) {
         this.historyCollector = collector;
+    }
+
+    public void setBookmarksController(BookmarksCollector collector) {
+        this.bookmarksCollector = collector;
+    }
+
+    public void addToBookmarks(ActionEvent actionEvent) {
+        this.bookmarksCollector.archive(this.activeTab.getHistoryEntry(), this.activeTab.getId());
+    }
+
+    public void openBookmarksWindow(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Bookmarks.fxml"));
+            Parent root = loader.load();
+            BookmarksController controller = loader.getController();
+            controller.setBookmarksCollector(this.bookmarksCollector);
+            controller.setParent(this);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Bookmarks");
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

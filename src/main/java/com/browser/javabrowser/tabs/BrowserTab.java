@@ -85,4 +85,9 @@ public class BrowserTab implements IBrowsable {
     {
         return this.id;
     }
+
+    public WebHistory.Entry getHistoryEntry() {
+        Integer currentId = this.engine.getHistory().getCurrentIndex();
+        return this.engine.getHistory().getEntries().get(currentId);
+    }
 }
