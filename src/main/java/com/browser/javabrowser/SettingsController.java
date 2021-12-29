@@ -2,6 +2,7 @@ package com.browser.javabrowser;
 
 import com.browser.javabrowser.history.HistoryCollector;
 import com.browser.javabrowser.history.ICollectable;
+import com.browser.javabrowser.messages.StyledAlert;
 import com.browser.javabrowser.settings.Settings;
 import com.browser.javabrowser.tools.URLtools;
 import javafx.event.ActionEvent;
@@ -41,8 +42,7 @@ public class SettingsController implements Initializable, ICollectable {
         }
         else
         {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Provided home page URL is not valid.");
-            alert.show();
+            StyledAlert.show(Alert.AlertType.ERROR, "Provided home page URL is not valid.");
         }
     }
 
