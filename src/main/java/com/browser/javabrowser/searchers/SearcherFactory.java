@@ -4,9 +4,11 @@ public final class SearcherFactory {
 
     public static ISearcher create(SearcherEnum searcherEnum)
     {
-        if (searcherEnum.getValue() == SearcherEnum.GOOGLE.getValue()) return new GoogleSearcher();
-        if (searcherEnum.getValue() == SearcherEnum.BING.getValue()) return new BingSearcher();
-        if (searcherEnum.getValue() == SearcherEnum.YAHOO.getValue()) return new YahooSearcher();
-        return new DuckDuckGoSearcher();
+        return switch (searcherEnum) {
+            case GOOGLE -> new GoogleSearcher();
+            case BING -> new BingSearcher();
+            case YAHOO -> new YahooSearcher();
+            default -> new DuckDuckGoSearcher();
+        };
     }
 }
