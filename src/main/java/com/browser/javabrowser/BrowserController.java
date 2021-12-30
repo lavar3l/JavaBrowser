@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebHistory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -78,11 +79,23 @@ public class BrowserController implements Initializable, IBrowsable {
         this.navigateURL(Settings.homePage);
     }
 
-    public void addNewTab(ActionEvent actionEvent) {
+    public WebEngine addNewTab(ActionEvent actionEvent) {
+        int position = this.tabPane.getTabs().size() - 1;
+        if(this.tabPane.getTabs().isEmpty()) position = 0;
+        return this.createNewTab(position);
+    }
+
+    public WebEngine openInNewTab(Tab source) {
+        int position = this.tabPane.getTabs().lastIndexOf(source) + 1;
+        return this.createNewTab(position);
+    }
+
+    private WebEngine createNewTab(int position) {
         BrowserTab browserTab = new BrowserTab(Settings.homePage, this);
         this.tabs.add(browserTab);
-        this.tabPane.getTabs().add(browserTab.getFXTab());
+        this.tabPane.getTabs().add(position, browserTab.getFXTab());
         this.tabPane.getSelectionModel().select(browserTab.getFXTab());
+        return browserTab.getEngine();
     }
 
     private BrowserTab getActiveTab() {
@@ -96,8 +109,6 @@ public class BrowserController implements Initializable, IBrowsable {
         }
         return null;
     }
-
-
 
     @Override
     public void navigateForward() {

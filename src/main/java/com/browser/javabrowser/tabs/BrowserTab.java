@@ -4,9 +4,11 @@ import com.browser.javabrowser.BrowserController;
 import com.browser.javabrowser.IBrowsable;
 import com.browser.javabrowser.tools.URLtools;
 import javafx.scene.control.Tab;
+import javafx.scene.web.PopupFeatures;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebHistory;
 import javafx.scene.web.WebView;
+import javafx.util.Callback;
 
 public class BrowserTab implements IBrowsable {
     private static Integer tabCount = 0;
@@ -29,6 +31,14 @@ public class BrowserTab implements IBrowsable {
                 (observable, oldValue, newValue) -> {
                     this.onPageChange();
                 });
+
+        this.engine.setCreatePopupHandler(
+                new Callback<PopupFeatures, WebEngine>() {
+                    @Override public WebEngine call(PopupFeatures config) {
+                        return controller.openInNewTab(fxTab);
+                    }
+                }
+        );
     }
 
     public Tab getFXTab() {
@@ -58,12 +68,17 @@ public class BrowserTab implements IBrowsable {
     private void onPageChange() {
         // Set current URL in address bar and tab title
         String currentURL = this.getURL();
-        this.fxTab.setText(URLtools.getTabTitle(currentURL));
+        String currentTitle = this.engine.getTitle();
+        if(currentTitle == null) currentTitle = currentURL;
+        this.fxTab.setText(URLtools.getTabTitle(currentTitle));
         this.controller.changeAddressText(currentURL, this.id);
 
         // Send history entry to history collector
-        Integer currentId = this.engine.getHistory().getCurrentIndex();
-        this.controller.archive(this.engine.getHistory().getEntries().get(currentId), this.id);
+        if(!this.engine.getHistory().getEntries().isEmpty())
+        {
+            Integer currentId = this.engine.getHistory().getCurrentIndex();
+            this.controller.archive(this.engine.getHistory().getEntries().get(currentId), this.id);
+        }
     }
 
     private void navigateHistory(int step) {
@@ -89,5 +104,9 @@ public class BrowserTab implements IBrowsable {
     public WebHistory.Entry getHistoryEntry() {
         Integer currentId = this.engine.getHistory().getCurrentIndex();
         return this.engine.getHistory().getEntries().get(currentId);
+    }
+
+    public WebEngine getEngine() {
+        return this.engine;
     }
 }
