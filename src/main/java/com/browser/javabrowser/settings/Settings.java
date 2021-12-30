@@ -1,11 +1,14 @@
 package com.browser.javabrowser.settings;
 
+import com.browser.javabrowser.searchers.SearcherEnum;
 import com.browser.javabrowser.tools.SerializationTools;
 
 public final class Settings {
     private static final String homePage_default = "http://google.com";
+    private static final SearcherEnum searcher_default = SearcherEnum.GOOGLE;
 
     public static String homePage;
+    public static SearcherEnum searcher;
 
     public static void initialize(String filePath)
     {
@@ -23,9 +26,11 @@ public final class Settings {
 
     public static void restoreDefaults() {
         Settings.homePage = Settings.homePage_default;
+        Settings.searcher = Settings.searcher_default;
     }
 
     private static void restoreSave(SettingsSave save) {
         Settings.homePage = save.homePage;
+        Settings.searcher = save.searcher;
     }
 }
