@@ -18,4 +18,5 @@ module com.browser.javabrowser {
     opens com.browser.javabrowser.collectors.bookmarks to javafx.base, com.google.gson;
     exports com.browser.javabrowser;
     opens com.browser.javabrowser.collectors to com.google.gson, javafx.base;
+    opens com.browser.javabrowser.searchers to com.google.gson;
 }

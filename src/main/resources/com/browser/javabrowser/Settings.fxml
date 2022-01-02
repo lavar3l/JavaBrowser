@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" style="-fx-background-color: #1e1e1e;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.browser.javabrowser.SettingsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="391.0" prefWidth="600.0" style="-fx-background-color: #1e1e1e;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.browser.javabrowser.SettingsController">
    <stylesheets>
       <String fx:value="/base.css" />
       <String fx:value="/base_extras.css" />
@@ -33,13 +29,13 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Button layoutX="20.0" layoutY="166.0" mnemonicParsing="false" text="Clear bookmarks" onAction="#clearBookmarks"/>
+      <Button layoutX="20.0" layoutY="166.0" mnemonicParsing="false" onAction="#clearBookmarks" text="Clear bookmarks" />
       <Label layoutX="20.0" layoutY="206.0" text="History">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Button layoutX="22.0" layoutY="231.0" mnemonicParsing="false" text="Clear history" onAction="#clearHistory"/>
+      <Button layoutX="22.0" layoutY="231.0" mnemonicParsing="false" onAction="#clearHistory" text="Clear history" />
       <Label layoutX="331.0" layoutY="60.0" text="Action">
          <font>
             <Font size="16.0" />
@@ -48,6 +44,13 @@
       <Button layoutX="332.0" layoutY="179.0" mnemonicParsing="false" text="Trigger action" />
       <TextField fx:id="loginTextField" layoutX="331.0" layoutY="93.0" />
       <PasswordField fx:id="passwordField" layoutX="331.0" layoutY="135.0" />
-      <Button layoutX="176.0" layoutY="93.0" mnemonicParsing="false" text="Set" onAction="#setHomePage"/>
+      <Button layoutX="176.0" layoutY="93.0" mnemonicParsing="false" onAction="#setHomePage" text="Set" />
+      <Label layoutX="23.0" layoutY="289.0" text="Default searcher">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="searcherChoiceBox" layoutX="20.0" layoutY="324.0" prefWidth="150.0" />
+      <Button layoutX="188.0" layoutY="324.0" mnemonicParsing="false" onAction="#setSearcher" text="Set" />
    </children>
 </AnchorPane>
