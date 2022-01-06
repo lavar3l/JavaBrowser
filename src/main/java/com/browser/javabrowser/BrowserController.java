@@ -76,7 +76,7 @@ public class BrowserController implements Initializable, IBrowsable {
     }
 
     public void loadHomePage(ActionEvent actionEvent) {
-        this.navigateURL(Settings.homePage);
+        this.navigateURL(Settings.getInstance().getHomePage());
     }
 
     public WebEngine addNewTab(ActionEvent actionEvent) {
@@ -91,7 +91,7 @@ public class BrowserController implements Initializable, IBrowsable {
     }
 
     private WebEngine createNewTab(int position) {
-        BrowserTab browserTab = new BrowserTab(Settings.homePage, this);
+        BrowserTab browserTab = new BrowserTab(Settings.getInstance().getHomePage(), this);
         this.tabs.add(browserTab);
         this.tabPane.getTabs().add(position, browserTab.getFXTab());
         this.tabPane.getSelectionModel().select(browserTab.getFXTab());

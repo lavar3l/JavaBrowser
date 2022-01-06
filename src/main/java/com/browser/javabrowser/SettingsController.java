@@ -50,20 +50,20 @@ public class SettingsController implements Initializable {
         this.macroManager = new MacroManager(Paths.getMacroPath());
         this.loadMacros();
 
-        this.homePageTextField.setText(Settings.homePage);
+        this.homePageTextField.setText(Settings.getInstance().getHomePage());
 
         for (SearcherEnum searcherEnum : SearcherEnum.values()) {
             this.searcherChoiceBox.getItems().add(SearcherFactory.create(searcherEnum));
         }
 
-        this.searcherChoiceBox.getSelectionModel().select(SearcherFactory.create(Settings.searcher));
+        this.searcherChoiceBox.getSelectionModel().select(SearcherFactory.create(Settings.getInstance().getSearcher()));
     }
 
     public void setHomePage(ActionEvent actionEvent) {
         String homePageURL = this.homePageTextField.getText();
         if (URLtools.isValidURL(homePageURL))
         {
-            Settings.homePage = homePageURL;
+            Settings.getInstance().setHomePage(homePageURL);
             StyledAlert.show(Alert.AlertType.INFORMATION, "Settings has been saved.");
         }
         else
@@ -73,7 +73,7 @@ public class SettingsController implements Initializable {
     }
 
     public void setSearcher(ActionEvent actionEvent) {
-        Settings.searcher = this.searcherChoiceBox.getSelectionModel().getSelectedItem().toEnum();
+        Settings.getInstance().setSearcher(this.searcherChoiceBox.getSelectionModel().getSelectedItem().toEnum());
         StyledAlert.show(Alert.AlertType.INFORMATION, "Settings has been saved.");
     }
 

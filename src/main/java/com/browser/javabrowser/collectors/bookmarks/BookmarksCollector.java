@@ -1,11 +1,13 @@
 package com.browser.javabrowser.collectors.bookmarks;
 
 import com.browser.javabrowser.collectors.ICollector;
-import com.browser.javabrowser.tools.SerializationTools;
+import com.browser.javabrowser.json.serializer.Serializer;
+import com.google.gson.reflect.TypeToken;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.web.WebHistory;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,14 +17,17 @@ public class BookmarksCollector implements ICollector<BookmarkEntry> {
     public BookmarksCollector(String filePath) {
         this.entries = new ArrayList<BookmarkEntry>();
 
-        Class<BookmarkEntry> type = BookmarkEntry.class;
-        List<BookmarkEntry> previousEntries = SerializationTools.deserializeList(filePath, type);
+        Serializer serializer = new Serializer();
+        Type type = new TypeToken<ArrayList<BookmarkEntry>>() {}.getType();
+        List<BookmarkEntry> previousEntries = serializer.deserialize(type, filePath, serializer.getDefaultGson());
+
         if(previousEntries != null) this.entries.addAll(previousEntries);
     }
 
     @Override
     public void saveToFile(String filePath) {
-        SerializationTools.serializeList(filePath, this.entries);
+        Serializer serializer = new Serializer();
+        serializer.serialize(this.entries, filePath, serializer.getDefaultGson());
     }
 
     @Override

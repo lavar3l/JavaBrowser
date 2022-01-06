@@ -1,11 +1,13 @@
 package com.browser.javabrowser.collectors.history;
 
 import com.browser.javabrowser.collectors.ICollector;
-import com.browser.javabrowser.tools.SerializationTools;
+import com.browser.javabrowser.json.serializer.Serializer;
+import com.google.gson.reflect.TypeToken;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.web.WebHistory;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,13 +17,16 @@ public class HistoryCollector implements ICollector<HistoryEntry> {
     public HistoryCollector(String filePath) {
         this.entries = new ArrayList<HistoryEntry>();
 
-        Class<HistoryEntry> type = HistoryEntry.class;
-        List<HistoryEntry> previousEntries = SerializationTools.deserializeList(filePath, type);
+        Serializer serializer = new Serializer();
+        Type type = new TypeToken<ArrayList<HistoryEntry>>() {}.getType();
+        List<HistoryEntry> previousEntries = serializer.deserialize(type, filePath, serializer.getDefaultGson());
+
         if(previousEntries != null) this.entries.addAll(previousEntries);
     }
 
     public void saveToFile(String filePath) {
-        SerializationTools.serializeList(filePath, this.entries);
+        Serializer serializer = new Serializer();
+        serializer.serialize(this.entries, filePath, serializer.getDefaultGson());
     }
 
     @Override

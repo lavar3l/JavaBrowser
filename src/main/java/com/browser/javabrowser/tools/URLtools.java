@@ -2,7 +2,6 @@ package com.browser.javabrowser.tools;
 
 import com.browser.javabrowser.searchers.SearcherFactory;
 import com.browser.javabrowser.settings.Settings;
-
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -27,7 +26,7 @@ public final class URLtools {
     {
         if (url.startsWith("http://") || url.startsWith("https://")) return url;
         if (URLtools.isValidURL("http://" + url)) return "http://" + url;
-        return SearcherFactory.create(Settings.searcher).toSearchUrl(url);
+        return SearcherFactory.create(Settings.getInstance().getSearcher()).toSearchUrl(url);
     }
 
     public static boolean isValidURL(String url)
