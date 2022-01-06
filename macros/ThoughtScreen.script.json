@@ -1,0 +1,33 @@
+{
+  "name": "Thought Screen",
+  "initialDelay": 5000,
+  "url": "https://www.thoughtscreen.com/screen-polish",
+  "steps": [
+    {
+      "type": "BusyWaiting",
+      "properties": {
+        "tickCount": 3000000
+      }
+    },
+    {
+      "type": "Script",
+      "properties": {
+        "contents": "let form = document.getElementById(\"idform\");\n         let registration = form.children[\"id\"];\n         registration.value = \"K@Web\";\n         document.getElementById(\"talknwatch\").children[0].click();\n\n         let input = document.getElementById(\"cbinputbox\");\n         input.value = \"test\";\n         input.click();"
+      }
+    },
+    {
+      "type": "Timeout",
+      "properties": {
+        "milliseconds": "5000",
+        "steps": [
+          {
+            "type": "Script",
+            "properties": {
+              "contents": "let button = document.getElementById(\"cbsayit\");\n          button.click();"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -6,11 +6,13 @@ import com.browser.javabrowser.settings.Paths;
 import com.browser.javabrowser.settings.Settings;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 
+import java.beans.EventHandler;
 import java.io.IOException;
 
 public class BrowserApplication extends Application {
@@ -49,13 +51,13 @@ public class BrowserApplication extends Application {
         Scene scene = new Scene(root);
         //stage.getIcons().add(new Image("icon.png"));
         stage.setTitle("JavaBrowser");
-
         stage.setScene(scene);
 
         stage.setOnCloseRequest(windowEvent -> {
             this.onAppClosing();
         });
 
+        controller.registerStage(stage);
         stage.show();
     }
 
