@@ -4,6 +4,9 @@ import com.browser.javabrowser.collectors.bookmarks.BookmarkEntry;
 import com.browser.javabrowser.collectors.history.HistoryCollector;
 import com.browser.javabrowser.collectors.history.HistoryEntry;
 import com.browser.javabrowser.collectors.ICollectable;
+import com.browser.javabrowser.settings.Settings;
+import com.browser.javabrowser.tabs.BrowserTab;
+import com.browser.javabrowser.tools.URLtools;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -61,6 +64,7 @@ public class HistoryController implements Initializable, ICollectable<HistoryCol
         this.tableView.getSortOrder().add(dateColumn);
     }
 
+
     private HistoryEntry getSelectedEntry() {
         return this.tableView.getSelectionModel().getSelectedItem();
     }
@@ -72,8 +76,7 @@ public class HistoryController implements Initializable, ICollectable<HistoryCol
 
     public void removeSelected(ActionEvent actionEvent) {
         HistoryEntry selectedEntry = this.getSelectedEntry();
-        if(selectedEntry != null)
-        {
+        if (selectedEntry != null) {
             this.historyCollector.remove(selectedEntry);
             this.loadData();
         }

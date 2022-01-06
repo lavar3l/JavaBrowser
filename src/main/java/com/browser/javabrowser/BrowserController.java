@@ -14,12 +14,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebHistory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -41,6 +40,7 @@ public class BrowserController implements Initializable, IBrowsable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+
         // Set tab pane policies
         this.tabPane.setTabDragPolicy(TabPane.TabDragPolicy.REORDER);
         this.tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.ALL_TABS);
@@ -98,7 +98,7 @@ public class BrowserController implements Initializable, IBrowsable {
         return browserTab.getEngine();
     }
 
-    private BrowserTab getActiveTab() {
+    public BrowserTab getActiveTab() {
         Tab activeTab = this.tabPane.getSelectionModel().getSelectedItem();
         for(BrowserTab browserTab : this.tabs)
         {
@@ -150,6 +150,7 @@ public class BrowserController implements Initializable, IBrowsable {
             SettingsController controller = loader.getController();
             controller.setCollector(this.historyCollector);
             controller.setCollector(this.bookmarksCollector);
+            controller.registerController(this);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Settings");
@@ -216,4 +217,74 @@ public class BrowserController implements Initializable, IBrowsable {
             e.printStackTrace();
         }
     }
+
+    public WebEngine navigateActiveTab(String url) {
+        WebEngine engine = this.getActiveTab().getEngine();
+        engine.load(url);
+
+        return engine;
+    }
+
+    // region Dimensions
+
+    private Stage stage = null;
+    public void registerStage(Stage stage) { this.stage = stage; }
+
+    public double getWidth() throws Exception {
+        if (this.stage == null)
+            throw new Exception("stage parameter was null");
+
+        return this.stage.getWidth();
+    }
+
+    public double getHeight() throws Exception {
+        if (this.stage == null)
+            throw new Exception("stage parameter was null");
+
+        return this.stage.getHeight();
+    }
+
+    public void setWidth(double width) throws Exception {
+        if (this.stage == null)
+            throw new Exception("stage parameter was null");
+
+        this.stage.setWidth(width);
+    }
+
+    public void setHeight(double height) throws Exception {
+        if (this.stage == null)
+            throw new Exception("stage parameter was null");
+
+        this.stage.setHeight(height);
+    }
+
+    public double getX() throws Exception {
+        if (this.stage == null)
+            throw new Exception("stage parameter was null");
+
+        return this.stage.getX();
+    }
+
+    public double getY() throws Exception {
+        if (this.stage == null)
+            throw new Exception("stage parameter was null");
+
+        return this.stage.getY();
+    }
+
+    public void setX(double x) throws Exception {
+        if (this.stage == null)
+            throw new Exception("stage parameter was null");
+
+        this.stage.setX(x);
+    }
+
+    public void setY(double y) throws Exception {
+        if (this.stage == null)
+            throw new Exception("stage parameter was null");
+
+        this.stage.setY(y);
+    }
+
+    // endregion
 }

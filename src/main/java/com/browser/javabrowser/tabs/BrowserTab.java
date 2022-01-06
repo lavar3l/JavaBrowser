@@ -10,6 +10,8 @@ import javafx.scene.web.WebHistory;
 import javafx.scene.web.WebView;
 import javafx.util.Callback;
 
+import java.awt.*;
+
 public class BrowserTab implements IBrowsable {
     private static Integer tabCount = 0;
     private Integer id;

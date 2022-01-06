@@ -30,6 +30,7 @@
          </font>
       </Label>
       <Button layoutX="20.0" layoutY="166.0" mnemonicParsing="false" onAction="#clearBookmarks" text="Clear bookmarks" />
+      <ChoiceBox fx:id="macroChoiceBox" layoutX="331.0" layoutY="93.0" prefHeight="25.0" prefWidth="149.0" />
       <Label layoutX="20.0" layoutY="206.0" text="History">
          <font>
             <Font size="16.0" />
@@ -41,9 +42,6 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Button layoutX="332.0" layoutY="179.0" mnemonicParsing="false" text="Trigger action" />
-      <TextField fx:id="loginTextField" layoutX="331.0" layoutY="93.0" />
-      <PasswordField fx:id="passwordField" layoutX="331.0" layoutY="135.0" />
       <Button layoutX="176.0" layoutY="93.0" mnemonicParsing="false" onAction="#setHomePage" text="Set" />
       <Label layoutX="23.0" layoutY="289.0" text="Default searcher">
          <font>
@@ -52,5 +50,7 @@
       </Label>
       <ChoiceBox fx:id="searcherChoiceBox" layoutX="20.0" layoutY="324.0" prefWidth="150.0" />
       <Button layoutX="188.0" layoutY="324.0" mnemonicParsing="false" onAction="#setSearcher" text="Set" />
+      <Button layoutX="332.0" layoutY="135.0" mnemonicParsing="false" onAction="#runMacro" text="Trigger action" />
+      <Button layoutX="176.0" layoutY="93.0" mnemonicParsing="false" onAction="#setHomePage" text="Set" />
    </children>
 </AnchorPane>
