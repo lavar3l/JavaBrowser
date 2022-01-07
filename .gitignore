@@ -24,3 +24,9 @@ hs_err_pid*
 
 # IDE
 .idea
+
+bookmarks.json
+history.json
+settings.json
+test.json
+.target

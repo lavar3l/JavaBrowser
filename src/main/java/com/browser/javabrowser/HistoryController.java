@@ -1,6 +1,5 @@
 package com.browser.javabrowser;
 
-import com.browser.javabrowser.collectors.bookmarks.BookmarkEntry;
 import com.browser.javabrowser.collectors.history.HistoryCollector;
 import com.browser.javabrowser.collectors.history.HistoryEntry;
 import com.browser.javabrowser.collectors.ICollectable;

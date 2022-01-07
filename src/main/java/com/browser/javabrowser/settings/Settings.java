@@ -1,37 +1,61 @@
 package com.browser.javabrowser.settings;
 
+import com.browser.javabrowser.json.serializer.Serializer;
 import com.browser.javabrowser.searchers.SearcherEnum;
-import com.browser.javabrowser.tools.SerializationTools;
 
 public final class Settings {
+    private static final String defaultHomePage = "http://google.com";
+    private static final SearcherEnum defaultSearcher = SearcherEnum.GOOGLE;
 
-    private static final String homePage_default = "http://google.com";
-    private static final SearcherEnum searcher_default = SearcherEnum.GOOGLE;
+    private String homePage;
+    private SearcherEnum searcher;
 
-    public static String homePage;
-    public static SearcherEnum searcher;
+    private Settings() {
+        this.homePage = Settings.defaultHomePage;
+        this.searcher = Settings.defaultSearcher;
+    }
+
+    private Settings(String homePage, SearcherEnum searcher) {
+        this.homePage = homePage;
+        this.searcher = searcher;
+    }
+
+    private static Settings instance = null;
+    public static Settings getInstance() {
+        if (Settings.instance == null)
+            Settings.instance = new Settings();
+
+        return Settings.instance;
+    }
 
     public static void initialize(String filePath)
     {
-        Class<SettingsSave> type = SettingsSave.class;
-        SettingsSave save = SerializationTools.deserialize(filePath, type);
-        if(save == null) Settings.restoreDefaults();
-        else Settings.restoreSave(save);
+        Serializer serializer = new Serializer();
+        Settings.instance = serializer.deserialize(Settings.class, filePath, serializer.getDefaultGson());
     }
 
     public static void saveToFile(String filePath) {
-        SettingsSave save = new SettingsSave();
-        save.saveSettings();
-        SerializationTools.serialize(filePath, save);
+        Serializer serializer = new Serializer();
+        serializer.serialize(Settings.instance, filePath, serializer.getDefaultGson());
     }
 
-    public static void restoreDefaults() {
-        Settings.homePage = Settings.homePage_default;
-        Settings.searcher = Settings.searcher_default;
+    // getters
+    public String getHomePage() {
+        return homePage;
     }
 
-    private static void restoreSave(SettingsSave save) {
-        Settings.homePage = save.homePage;
-        Settings.searcher = save.searcher;
+    public SearcherEnum getSearcher() {
+        return searcher;
     }
+    // -- * --
+
+    // setters
+    public void setHomePage(String homePage) {
+        this.homePage = homePage;
+    }
+
+    public void setSearcher(SearcherEnum searcher) {
+        this.searcher = searcher;
+    }
+    // -- * --
 }
