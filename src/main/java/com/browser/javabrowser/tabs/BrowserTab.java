@@ -12,7 +12,14 @@ import javafx.util.Callback;
 
 import java.awt.*;
 
+/*
+ * Component which encapsulates single browser tab
+ */
+
 public class BrowserTab implements IBrowsable {
+
+    //region Component initialization
+
     private static Integer tabCount = 0;
     private Integer id;
     private Tab fxTab;
@@ -21,6 +28,7 @@ public class BrowserTab implements IBrowsable {
     private BrowserController controller;
 
     public BrowserTab(String url, BrowserController controller) {
+        // Initialize component
         this.id = ++BrowserTab.tabCount;
         this.controller = controller;
         this.fxTab = new Tab(URLtools.getTabTitle(url));
@@ -29,23 +37,19 @@ public class BrowserTab implements IBrowsable {
         this.engine.load(url);
         this.fxTab.setContent(this.webView);
 
+        // Set handler on page change event
         this.engine.getLoadWorker().stateProperty().addListener(
                 (observable, oldValue, newValue) -> {
                     this.onPageChange();
                 });
 
-        this.engine.setCreatePopupHandler(
-                new Callback<PopupFeatures, WebEngine>() {
-                    @Override public WebEngine call(PopupFeatures config) {
-                        return controller.openInNewTab(fxTab);
-                    }
-                }
-        );
+        // Set handler for 'Open in new tab' feature
+        this.engine.setCreatePopupHandler(config -> controller.openInNewTab(fxTab));
     }
 
-    public Tab getFXTab() {
-        return this.fxTab;
-    }
+    //endregion
+
+    //region Browser navigation features
 
     @Override
     public void navigateForward() {
@@ -67,6 +71,30 @@ public class BrowserTab implements IBrowsable {
         this.engine.reload();
     }
 
+    //endregion
+
+    //region Getters
+
+    public Tab getFXTab() {
+        return this.fxTab;
+    }
+
+    public String getURL() {
+        return this.engine.getLocation();
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+
+    public WebEngine getEngine() {
+        return this.engine;
+    }
+
+    //endregion
+
+    //region Page change events
+
     private void onPageChange() {
         // Set current URL in address bar and tab title
         String currentURL = this.getURL();
@@ -76,31 +104,23 @@ public class BrowserTab implements IBrowsable {
         this.controller.changeAddressText(currentURL, this.id);
 
         // Send history entry to history collector
-        if(!this.engine.getHistory().getEntries().isEmpty())
-        {
+        if(!this.engine.getHistory().getEntries().isEmpty()) {
             Integer currentId = this.engine.getHistory().getCurrentIndex();
             this.controller.archive(this.engine.getHistory().getEntries().get(currentId), this.id);
         }
     }
 
+    //endregion
+
+    //region History
+
     private void navigateHistory(int step) {
         WebHistory history = engine.getHistory();
         int newIndex = history.getCurrentIndex() + step;
-        if(newIndex >= 0 && newIndex < history.getEntries().size())
-        {
+        if(newIndex >= 0 && newIndex < history.getEntries().size()) {
             history.go(step);
             this.onPageChange();
         }
-    }
-
-    public String getURL()
-    {
-        return this.engine.getLocation();
-    }
-
-    public Integer getId()
-    {
-        return this.id;
     }
 
     public WebHistory.Entry getHistoryEntry() {
@@ -108,7 +128,6 @@ public class BrowserTab implements IBrowsable {
         return this.engine.getHistory().getEntries().get(currentId);
     }
 
-    public WebEngine getEngine() {
-        return this.engine;
-    }
+    //endregion
+
 }

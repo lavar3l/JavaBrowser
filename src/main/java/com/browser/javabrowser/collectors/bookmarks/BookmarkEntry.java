@@ -3,12 +3,15 @@ package com.browser.javabrowser.collectors.bookmarks;
 import com.browser.javabrowser.collectors.IEntry;
 import javafx.scene.web.WebHistory;
 
+/*
+ * Entry for storing bookmarks data
+ */
+
 public class BookmarkEntry implements IEntry {
     private String title;
     private String url;
 
-    public BookmarkEntry(WebHistory.Entry entry)
-    {
+    public BookmarkEntry(WebHistory.Entry entry) {
         this.title = entry.getTitle();
         this.url = entry.getUrl();
     }

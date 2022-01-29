@@ -6,13 +6,16 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 
 import java.util.Date;
 
+/*
+ * Entry for storing history data
+ */
+
 public class HistoryEntry implements IEntry {
     private String title;
     private String url;
     private Date date;
 
-    public HistoryEntry(WebHistory.Entry entry)
-    {
+    public HistoryEntry(WebHistory.Entry entry) {
         this.title = entry.getTitle();
         this.url = entry.getUrl();
         this.date = entry.getLastVisitedDate();

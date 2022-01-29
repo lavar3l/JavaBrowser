@@ -1,5 +1,9 @@
 package com.browser.javabrowser.searchers;
 
+/*
+ * Google search engine wrapper
+ */
+
 public class GoogleSearcher implements ISearcher {
     @Override
     public String toSearchUrl(String phrase) {

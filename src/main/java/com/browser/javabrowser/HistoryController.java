@@ -15,9 +15,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/*
+ * History window controller
+ */
+
 public class HistoryController implements Initializable, ICollectable<HistoryCollector> {
-    private HistoryCollector historyCollector;
-    private BrowserController parent;
+
+    //region Controller initialization
 
     @FXML
     TableView<HistoryEntry> tableView;
@@ -27,42 +31,58 @@ public class HistoryController implements Initializable, ICollectable<HistoryCol
 
     }
 
+    //endregion
+
+    //region Collector handlers
+
+    private HistoryCollector historyCollector;
+    private BrowserController parent;
+
     @Override
-    public void setParent(BrowserController parent)
-    {
-        this.parent = parent;
-    }
-
-
-    public void setCollector(HistoryCollector collector)
-    {
+    public void setCollector(HistoryCollector collector) {
         this.historyCollector = collector;
         this.loadData();
     }
 
-    private void loadData()
-    {
+    @Override
+    public void setParent(BrowserController parent) {
+        this.parent = parent;
+    }
+
+    //endregion
+
+    //region Data loader
+
+    private void loadData() {
+        // Setup tableview layout
         this.tableView.setEditable(true);
         this.tableView.getColumns().clear();
 
+        // Prepare date converter and column properties
         TableColumn<HistoryEntry, String> dateColumn = new TableColumn<HistoryEntry, String>("Date");
         dateColumn.setCellValueFactory(new PropertyValueFactory<HistoryEntry, String>("date"));
         dateColumn.setSortType(TableColumn.SortType.DESCENDING);
         dateColumn.setMinWidth(200);
 
+        // Prepare title converter and column properties
         TableColumn<HistoryEntry, String> titleColumn = new TableColumn<HistoryEntry, String>("Title");
         titleColumn.setCellValueFactory(new PropertyValueFactory<HistoryEntry, String>("title"));
         titleColumn.setMinWidth(100);
 
+        // Prepare url converter and column properties
         TableColumn<HistoryEntry, String> urlColumn = new TableColumn<HistoryEntry, String>("Address");
         urlColumn.setCellValueFactory(new PropertyValueFactory<HistoryEntry, String>("url"));
         urlColumn.setMinWidth(200);
 
+        // Add columns to tableview and load data
         this.tableView.getColumns().addAll(dateColumn, titleColumn, urlColumn);
         this.tableView.setItems(this.historyCollector.getData());
         this.tableView.getSortOrder().add(dateColumn);
     }
 
+    //endregion
+
+    //region Selection handlers
 
     private HistoryEntry getSelectedEntry() {
         return this.tableView.getSelectionModel().getSelectedItem();
@@ -80,4 +100,6 @@ public class HistoryController implements Initializable, ICollectable<HistoryCol
             this.loadData();
         }
     }
+
+    //endregion
 }

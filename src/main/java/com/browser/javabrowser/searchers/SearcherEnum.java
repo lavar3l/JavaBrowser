@@ -1,5 +1,9 @@
 package com.browser.javabrowser.searchers;
 
+/*
+ * Available search engines
+ */
+
 public enum SearcherEnum {
     GOOGLE(0),
     BING(1),

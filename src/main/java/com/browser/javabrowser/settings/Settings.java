@@ -3,10 +3,16 @@ package com.browser.javabrowser.settings;
 import com.browser.javabrowser.json.serializer.Serializer;
 import com.browser.javabrowser.searchers.SearcherEnum;
 
+/*
+ * Class for storing, loading and saving browser settings
+ */
+
 public final class Settings {
+    // Default settings
     private static final String defaultHomePage = "http://google.com";
     private static final SearcherEnum defaultSearcher = SearcherEnum.GOOGLE;
 
+    // Current settings
     private String homePage;
     private SearcherEnum searcher;
 
@@ -39,7 +45,8 @@ public final class Settings {
         serializer.serialize(Settings.instance, filePath, serializer.getDefaultGson());
     }
 
-    // getters
+    //region Getters
+
     public String getHomePage() {
         return homePage;
     }
@@ -47,9 +54,11 @@ public final class Settings {
     public SearcherEnum getSearcher() {
         return searcher;
     }
-    // -- * --
 
-    // setters
+    //endregion
+
+    //region Setters
+
     public void setHomePage(String homePage) {
         this.homePage = homePage;
     }
@@ -57,5 +66,6 @@ public final class Settings {
     public void setSearcher(SearcherEnum searcher) {
         this.searcher = searcher;
     }
-    // -- * --
+
+    //endregion
 }

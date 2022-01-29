@@ -1,5 +1,9 @@
 package com.browser.javabrowser.searchers;
 
+/*
+ * Yahoo search engine wrapper
+ */
+
 public class YahooSearcher implements ISearcher {
     @Override
     public String toSearchUrl(String phrase) {

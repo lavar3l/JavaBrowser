@@ -1,5 +1,9 @@
 package com.browser.javabrowser.settings;
 
+/*
+ * Paths to browser files
+ */
+
 public final class Paths {
     private final static String settingsPath = "settings.json";
     private final static String historyPath = "history.json";

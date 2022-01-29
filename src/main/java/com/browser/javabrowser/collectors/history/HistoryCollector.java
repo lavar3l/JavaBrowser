@@ -11,16 +11,22 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * Class responsible for collecting, loading and saving history data
+ */
+
 public class HistoryCollector implements ICollector<HistoryEntry> {
     private List<HistoryEntry> entries;
 
     public HistoryCollector(String filePath) {
         this.entries = new ArrayList<HistoryEntry>();
 
+        // Load history from file
         Serializer serializer = new Serializer();
         Type type = new TypeToken<ArrayList<HistoryEntry>>() {}.getType();
         List<HistoryEntry> previousEntries = serializer.deserialize(type, filePath, serializer.getDefaultGson());
 
+        // Initialize empty history collector in case of file missing
         if(previousEntries != null) this.entries.addAll(previousEntries);
     }
 

@@ -21,19 +21,15 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/*
+ * Settings window controller
+ */
 
 public class SettingsController implements Initializable {
+    //region Controller initialization
+
     @FXML
     private TextField homePageTextField;
-
-    @FXML
-    private TextField loginTextField;
-
-    @FXML
-    private PasswordField passwordField;
-
-    @FXML
-    private ToggleButton favouritesToggleButton;
 
     @FXML
     private ChoiceBox<ISearcher> searcherChoiceBox;
@@ -41,33 +37,47 @@ public class SettingsController implements Initializable {
     @FXML
     private ChoiceBox<IMacro> macroChoiceBox;
 
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        // Load available macros
+        this.macroManager = new MacroManager(Paths.getMacroPath());
+        this.loadMacros();
+
+        // Load current home page
+        this.homePageTextField.setText(Settings.getInstance().getHomePage());
+
+        // Load currently selected and available search engines
+        for (SearcherEnum searcherEnum : SearcherEnum.values()) {
+            this.searcherChoiceBox.getItems().add(SearcherFactory.create(searcherEnum));
+        }
+        this.searcherChoiceBox.getSelectionModel().select(SearcherFactory.create(Settings.getInstance().getSearcher()));
+    }
+
+    //endregion
+
+    //region Collectors handlers
 
     private HistoryCollector historyCollector;
     private BookmarksCollector bookmarksCollector;
 
-    @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
-        this.macroManager = new MacroManager(Paths.getMacroPath());
-        this.loadMacros();
-
-        this.homePageTextField.setText(Settings.getInstance().getHomePage());
-
-        for (SearcherEnum searcherEnum : SearcherEnum.values()) {
-            this.searcherChoiceBox.getItems().add(SearcherFactory.create(searcherEnum));
-        }
-
-        this.searcherChoiceBox.getSelectionModel().select(SearcherFactory.create(Settings.getInstance().getSearcher()));
+    public void setCollector(HistoryCollector collector) {
+        this.historyCollector = collector;
     }
+
+    public void setCollector(BookmarksCollector collector) {
+        this.bookmarksCollector = collector;
+    }
+
+    //endregion
+
+    //region Action handlers
 
     public void setHomePage(ActionEvent actionEvent) {
         String homePageURL = this.homePageTextField.getText();
-        if (URLtools.isValidURL(homePageURL))
-        {
+        if (URLtools.isValidURL(homePageURL)) {
             Settings.getInstance().setHomePage(homePageURL);
             StyledAlert.show(Alert.AlertType.INFORMATION, "Settings has been saved.");
-        }
-        else
-        {
+        } else {
             StyledAlert.show(Alert.AlertType.ERROR, "Provided home page URL is not valid.");
         }
     }
@@ -81,19 +91,13 @@ public class SettingsController implements Initializable {
         this.historyCollector.clear();
     }
 
-    public void setCollector(HistoryCollector collector) {
-        this.historyCollector = collector;
-    }
-
     public void clearBookmarks(ActionEvent actionEvent) {
         this.bookmarksCollector.clear();
     }
 
-    public void setCollector(BookmarksCollector collector) {
-        this.bookmarksCollector = collector;
-    }
+    //endregion
 
-    // region Macros
+    //region Macros handlers
 
     private MacroManager macroManager = null;
     private BrowserController browserController = null;
@@ -115,10 +119,10 @@ public class SettingsController implements Initializable {
     }
 
     private void loadMacros() {
-        // load macros from the macro directory
+        // Load macros from the macro directory
         this.macroManager.loadMacros();
 
-        // add a listener for the item selection event
+        // Add a listener for the item selection event
         this.macroChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<IMacro>() {
             @Override
             public void changed(ObservableValue<? extends IMacro> observableValue, IMacro iMacro, IMacro t1) {
@@ -126,9 +130,9 @@ public class SettingsController implements Initializable {
             }
         });
 
-        // load macros
+        // Load macros
         this.macroChoiceBox.getItems().addAll(this.macroManager.getMacros());
     }
 
-    // endregion
+    //endregion
 }

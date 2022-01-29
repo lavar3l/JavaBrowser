@@ -1,5 +1,9 @@
 package com.browser.javabrowser.searchers;
 
+/*
+ * DuckDuckGo search engine wrapper
+ */
+
 public class DuckDuckGoSearcher implements ISearcher {
     @Override
     public String toSearchUrl(String phrase) {

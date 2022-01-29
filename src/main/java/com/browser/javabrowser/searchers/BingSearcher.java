@@ -1,5 +1,9 @@
 package com.browser.javabrowser.searchers;
 
+/*
+ * Bing search engine wrapper
+ */
+
 public class BingSearcher implements ISearcher {
     @Override
     public String toSearchUrl(String phrase) {

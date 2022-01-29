@@ -11,16 +11,22 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * Class responsible for collecting, loading and saving bookmark data
+ */
+
 public class BookmarksCollector implements ICollector<BookmarkEntry> {
     private List<BookmarkEntry> entries;
 
     public BookmarksCollector(String filePath) {
         this.entries = new ArrayList<BookmarkEntry>();
 
+        // Load bookmarks from file
         Serializer serializer = new Serializer();
         Type type = new TypeToken<ArrayList<BookmarkEntry>>() {}.getType();
         List<BookmarkEntry> previousEntries = serializer.deserialize(type, filePath, serializer.getDefaultGson());
 
+        // Initialize empty bookmark collector in case of file missing
         if(previousEntries != null) this.entries.addAll(previousEntries);
     }
 

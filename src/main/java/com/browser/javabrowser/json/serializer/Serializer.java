@@ -17,8 +17,15 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Collection;
 
+/*
+ * JSON generic serializer class built on top of the GSON package
+ */
+
 public class Serializer {
-    public Gson getDefaultGson() { return new Gson(); }
+    public Gson getDefaultGson() {
+        return new Gson();
+    }
+
     public Gson getCustomGson(Type type, IAdapter adapter) {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(type, adapter);

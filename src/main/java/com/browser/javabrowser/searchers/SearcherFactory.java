@@ -1,5 +1,9 @@
 package com.browser.javabrowser.searchers;
 
+/*
+ * Search engines factory
+ */
+
 public final class SearcherFactory {
 
     public static ISearcher create(SearcherEnum searcherEnum)

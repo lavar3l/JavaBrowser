@@ -8,6 +8,10 @@ import java.net.URL;
 
 import static java.lang.Math.min;
 
+/*
+ * Tools for processing URLs
+ */
+
 public final class URLtools {
     private static final int MAX_TITLE_LENGTH = 12;
 
@@ -17,20 +21,13 @@ public final class URLtools {
                   .replace("www.", "");
     }
 
-    public static String getTabTitle(String url) {
-        String title = URLtools.getSanitizedURL(url);
-        return title.substring(0, min(title.length(), URLtools.MAX_TITLE_LENGTH));
-    }
-
-    public static String getFullURL(String url)
-    {
+    public static String getFullURL(String url) {
         if (url.startsWith("http://") || url.startsWith("https://")) return url;
         if (URLtools.isValidURL("http://" + url)) return "http://" + url;
         return SearcherFactory.create(Settings.getInstance().getSearcher()).toSearchUrl(url);
     }
 
-    public static boolean isValidURL(String url)
-    {
+    public static boolean isValidURL(String url) {
         try {
             new URL(url).toURI();
         } catch (URISyntaxException | MalformedURLException e) {
@@ -39,5 +36,10 @@ public final class URLtools {
 
         String sanitizedUrl = url.replace("http://", "");
         return sanitizedUrl.contains(".") || sanitizedUrl.startsWith("localhost");
+    }
+
+    public static String getTabTitle(String url) {
+        String title = URLtools.getSanitizedURL(url);
+        return title.substring(0, min(title.length(), URLtools.MAX_TITLE_LENGTH));
     }
 }

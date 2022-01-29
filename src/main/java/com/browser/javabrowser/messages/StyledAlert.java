@@ -3,6 +3,10 @@ package com.browser.javabrowser.messages;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
 
+/*
+ * MessageBox styled according to the style of the browser
+ */
+
 public class StyledAlert {
     public static void show(Alert.AlertType type, String message) {
         Alert alert = new Alert(type, message);

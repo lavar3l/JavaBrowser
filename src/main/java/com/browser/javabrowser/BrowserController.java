@@ -25,7 +25,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/*
+ * Browser main window controller
+ */
+
 public class BrowserController implements Initializable, IBrowsable {
+
+    //region Controller initialization
+
     @FXML
     private TextField textField;
 
@@ -34,9 +41,6 @@ public class BrowserController implements Initializable, IBrowsable {
 
     private List<BrowserTab> tabs;
     private BrowserTab activeTab;
-
-    private HistoryCollector historyCollector;
-    private BookmarksCollector bookmarksCollector;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -71,6 +75,35 @@ public class BrowserController implements Initializable, IBrowsable {
         return newTabButton;
     }
 
+    //endregion
+
+    //region Collectors handlers
+
+    private HistoryCollector historyCollector;
+    private BookmarksCollector bookmarksCollector;
+
+    public void setCollector(HistoryCollector collector) {
+        this.historyCollector = collector;
+    }
+
+    public void setCollector(BookmarksCollector collector) {
+        this.bookmarksCollector = collector;
+    }
+
+    public void archive(WebHistory.Entry entry, Integer tabId) {
+        if(tabId.equals(this.activeTab.getId())) {
+            if(this.historyCollector != null) this.historyCollector.archive(entry);
+        }
+    }
+
+    public void addToBookmarks(ActionEvent actionEvent) {
+        this.bookmarksCollector.archive(this.activeTab.getHistoryEntry());
+    }
+
+    //endregion
+
+    //region Page loaders
+
     public void loadPage(ActionEvent actionEvent) {
         this.navigateURL(URLtools.getFullURL(this.textField.getText()));
     }
@@ -78,6 +111,10 @@ public class BrowserController implements Initializable, IBrowsable {
     public void loadHomePage(ActionEvent actionEvent) {
         this.navigateURL(Settings.getInstance().getHomePage());
     }
+
+    //endregion
+
+    //region New tab handlers
 
     public WebEngine addNewTab(ActionEvent actionEvent) {
         int position = this.tabPane.getTabs().size() - 1;
@@ -91,24 +128,53 @@ public class BrowserController implements Initializable, IBrowsable {
     }
 
     private WebEngine createNewTab(int position) {
+        // Add new tab at specified position
         BrowserTab browserTab = new BrowserTab(Settings.getInstance().getHomePage(), this);
         this.tabs.add(browserTab);
         this.tabPane.getTabs().add(position, browserTab.getFXTab());
+
+        // Select new tab
         this.tabPane.getSelectionModel().select(browserTab.getFXTab());
+
+        // Return new tab's web engine
         return browserTab.getEngine();
     }
 
+    //endregion
+
+    //region Active tab selection handlers
+
     public BrowserTab getActiveTab() {
         Tab activeTab = this.tabPane.getSelectionModel().getSelectedItem();
-        for(BrowserTab browserTab : this.tabs)
-        {
-            if(activeTab == browserTab.getFXTab())
-            {
+        for(BrowserTab browserTab : this.tabs) {
+            if(activeTab == browserTab.getFXTab()) {
                 return browserTab;
             }
         }
         return null;
     }
+
+    public void onTabSelectionChange() {
+        this.activeTab = this.getActiveTab();
+        this.changeAddressText(this.activeTab.getURL(), null);
+    }
+
+    public void changeAddressText(String url, Integer tabId) {
+        if(tabId == null || tabId.equals(this.activeTab.getId())) {
+            this.textField.setText(url);
+        }
+    }
+
+    public WebEngine navigateActiveTab(String url) {
+        WebEngine engine = this.getActiveTab().getEngine();
+        engine.load(url);
+
+        return engine;
+    }
+
+    //endregion
+
+    //region Browser navigation features
 
     @Override
     public void navigateForward() {
@@ -130,18 +196,9 @@ public class BrowserController implements Initializable, IBrowsable {
         this.activeTab.reloadPage();
     }
 
-    public void changeAddressText(String url, Integer tabId) {
-        if(tabId == null || tabId.equals(this.activeTab.getId()))
-        {
-            this.textField.setText(url);
-        }
-    }
+    //endregion
 
-    public void onTabSelectionChange()
-    {
-        this.activeTab = this.getActiveTab();
-        this.changeAddressText(this.activeTab.getURL(), null);
-    }
+    //region External windows
 
     public void openSettingsWindow(ActionEvent actionEvent) {
         try {
@@ -181,25 +238,6 @@ public class BrowserController implements Initializable, IBrowsable {
         }
     }
 
-    public void archive(WebHistory.Entry entry, Integer tabId) {
-        if(tabId.equals(this.activeTab.getId()))
-        {
-            if(this.historyCollector != null) this.historyCollector.archive(entry);
-        }
-    }
-
-    public void setCollector(HistoryCollector collector) {
-        this.historyCollector = collector;
-    }
-
-    public void setCollector(BookmarksCollector collector) {
-        this.bookmarksCollector = collector;
-    }
-
-    public void addToBookmarks(ActionEvent actionEvent) {
-        this.bookmarksCollector.archive(this.activeTab.getHistoryEntry());
-    }
-
     public void openBookmarksWindow(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Bookmarks.fxml"));
@@ -218,12 +256,7 @@ public class BrowserController implements Initializable, IBrowsable {
         }
     }
 
-    public WebEngine navigateActiveTab(String url) {
-        WebEngine engine = this.getActiveTab().getEngine();
-        engine.load(url);
-
-        return engine;
-    }
+    //endregion
 
     // region Dimensions
 
