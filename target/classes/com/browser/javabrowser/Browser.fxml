@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #1e1e1e;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.browser.javabrowser.BrowserController">
+   <stylesheets>
+      <String fx:value="/base.css" />
+      <String fx:value="/base_extras.css" />
+      <String fx:value="/base_other_libraries.css" />
+      <String fx:value="/dark_theme.css" />
+   </stylesheets>
+   <children>
+      <TabPane fx:id="tabPane" layoutX="6.0" layoutY="43.0" prefHeight="357.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="43.0">
+        <tabs>
+        </tabs>
+      </TabPane>
+      <TextField fx:id="textField" layoutX="133.0" layoutY="10.0" onAction="#loadPage" prefHeight="25.0" prefWidth="855.0" AnchorPane.leftAnchor="168.0" AnchorPane.rightAnchor="168.0" AnchorPane.topAnchor="10.0" />
+      <Button layoutX="528.0" layoutY="10.0" mnemonicParsing="false" onAction="#loadHomePage" AnchorPane.rightAnchor="48.0" AnchorPane.topAnchor="10.0">
+         <graphic>
+            <FontIcon iconColor="white" iconLiteral="win10-home" />
+         </graphic>
+      </Button>
+      <Button layoutX="562.0" layoutY="11.0" mnemonicParsing="false" onAction="#openSettingsWindow" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="10.0">
+         <graphic>
+            <FontIcon iconColor="white" iconLiteral="win10-settings" />
+         </graphic>
+      </Button>
+      <Button layoutX="49.0" layoutY="11.0" mnemonicParsing="false" onAction="#navigateForward" AnchorPane.leftAnchor="48.0" AnchorPane.topAnchor="10.0">
+         <graphic>
+            <FontIcon iconColor="white" iconLiteral="win10-chevron-right" />
+         </graphic>
+      </Button>
+      <Button layoutX="14.0" layoutY="11.0" mnemonicParsing="false" onAction="#navigateBackward" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="10.0">
+         <graphic>
+            <FontIcon iconColor="white" iconLiteral="win10-chevron-left" />
+         </graphic>
+      </Button>
+      <Button layoutX="84.0" layoutY="11.0" mnemonicParsing="false" onAction="#reloadPage" AnchorPane.leftAnchor="84.0" AnchorPane.topAnchor="10.0">
+         <graphic>
+            <FontIcon iconColor="white" iconLiteral="win10-rotate-right" />
+         </graphic>
+      </Button>
+      <Button layoutX="468.0" layoutY="16.0" mnemonicParsing="false" onAction="#openHistoryWindow" AnchorPane.rightAnchor="84.0" AnchorPane.topAnchor="10.0">
+         <graphic>
+            <FontIcon iconColor="white" iconLiteral="win10-binoculars" text="" />
+         </graphic>
+      </Button>
+      <Button layoutX="120.0" layoutY="11.0" mnemonicParsing="false" onAction="#addToBookmarks" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="10.0">
+         <graphic>
+            <FontIcon iconColor="white" iconLiteral="win10-pin-3" />
+         </graphic>
+      </Button>
+      <Button layoutX="1051.0" layoutY="10.0" mnemonicParsing="false" onAction="#openBookmarksWindow" AnchorPane.rightAnchor="121.0" AnchorPane.topAnchor="10.0">
+         <graphic>
+            <FontIcon iconColor="white" iconLiteral="win10-list" />
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>

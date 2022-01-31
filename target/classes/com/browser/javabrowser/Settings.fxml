@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="391.0" prefWidth="600.0" style="-fx-background-color: #1e1e1e;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.browser.javabrowser.SettingsController">
+   <stylesheets>
+      <String fx:value="/base.css" />
+      <String fx:value="/base_extras.css" />
+      <String fx:value="/base_other_libraries.css" />
+      <String fx:value="/dark_theme.css" />
+   </stylesheets>
+   <children>
+      <Label layoutX="14.0" layoutY="19.0" text="Browser settings">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="homePageTextField" layoutX="20.0" layoutY="93.0" />
+      <Label layoutX="23.0" layoutY="60.0" text="Home page">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="21.0" layoutY="135.0" text="Bookmarks">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Button layoutX="20.0" layoutY="166.0" mnemonicParsing="false" onAction="#clearBookmarks" text="Clear bookmarks" />
+      <ChoiceBox fx:id="macroChoiceBox" layoutX="331.0" layoutY="93.0" prefHeight="25.0" prefWidth="149.0" />
+      <Label layoutX="20.0" layoutY="206.0" text="History">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Button layoutX="22.0" layoutY="231.0" mnemonicParsing="false" onAction="#clearHistory" text="Clear history" />
+      <Label layoutX="331.0" layoutY="60.0" text="Action">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Button layoutX="176.0" layoutY="93.0" mnemonicParsing="false" onAction="#setHomePage" text="Set" />
+      <Label layoutX="23.0" layoutY="289.0" text="Default searcher">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="searcherChoiceBox" layoutX="20.0" layoutY="324.0" prefWidth="150.0" />
+      <Button layoutX="188.0" layoutY="324.0" mnemonicParsing="false" onAction="#setSearcher" text="Set" />
+      <Button layoutX="332.0" layoutY="135.0" mnemonicParsing="false" onAction="#runMacro" text="Trigger action" />
+      <Button layoutX="176.0" layoutY="93.0" mnemonicParsing="false" onAction="#setHomePage" text="Set" />
+   </children>
+</AnchorPane>

@@ -7,8 +7,8 @@ module com.browser.javabrowser {
     requires com.google.gson;
 
     requires org.kordamp.ikonli.core;
-    requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.win10;
+    requires org.kordamp.ikonli.javafx;
 
     requires org.apache.commons.lang3;
     requires jdk.jsobject;

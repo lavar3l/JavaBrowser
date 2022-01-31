@@ -1,0 +1,87 @@
+{
+  "name": "Scream Into The Void",
+  "initialDelay": 1500,
+  "url": "https://screamintothevoid.com/",
+  "recordedWidth": 1216,
+  "recordedHeight": 839,
+  "steps": [
+    {
+      "type": "MouseClick",
+      "properties": {
+        "x": 1190,
+        "y": 780,
+        "button": "left",
+        "holdSeconds": 0
+      }
+    },
+    {
+      "type": "MouseClick",
+      "properties": {
+        "x": 608,
+        "y": 450,
+        "button": "left",
+        "holdSeconds": 0
+      }
+    },
+    {
+      "type": "Type",
+      "properties": {
+        "text": "test"
+      }
+    },
+    {
+      "type": "MouseClick",
+      "properties": {
+        "x": 608,
+        "y": 800,
+        "button": "left",
+        "holdSeconds": 0
+      }
+    },
+    {
+      "type": "Timeout",
+      "properties": {
+        "milliseconds": 1500,
+        "steps": []
+      }
+    },
+    {
+      "type": "MouseClick",
+      "properties": {
+        "x": 608,
+        "y": 450,
+        "button": "left",
+        "holdSeconds": 0
+      }
+    },
+    {
+      "type": "Type",
+      "properties": {
+        "text": "Keencelia"
+      }
+    },
+    {
+      "type": "Timeout",
+      "properties": {
+        "milliseconds": 500,
+        "steps": []
+      }
+    },
+    {
+      "type": "MouseClick",
+      "properties": {
+        "x": 608,
+        "y": 800,
+        "button": "left",
+        "holdSeconds": 0
+      }
+    },
+    {
+      "type": "Timeout",
+      "properties": {
+        "milliseconds": 500,
+        "steps": []
+      }
+    }
+  ]
+}
