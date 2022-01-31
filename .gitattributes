@@ -1,0 +1,2 @@
+src/main/resources/* linguist-vendored
+target/classes/*.css linguist-vendored
